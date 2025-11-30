@@ -111,8 +111,10 @@ class Dealer(models.Model):
     rera_certificate = models.URLField(blank=True, null=True)
 
     @property
-    def phone(self):
-        return self.user.phone
+    def Dealersphone(self):
+        if self.user.role == "dealer":
+            return self.user.phone
+        return None
 
     def clean(self):
         if self.user.role != "dealer":
@@ -151,8 +153,10 @@ class Agency(models.Model):
     )
 
     @property
-    def phone(self):
-        return self.user.phone
+    def Agenciesphone(self):
+        if self.user.role == "agency":
+            return self.user.phone
+        return None
 
     def clean(self):
         if self.user.role != "agency":
