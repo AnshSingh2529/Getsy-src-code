@@ -24,6 +24,9 @@ class PropertyDealBase(models.Model):
         PENDING = "pending", "Pending"
         ZEROCLIENT = "zeroclient", "Zero Client"
 
+    properties = models.ForeignKey(
+        "Property", on_delete=models.CASCADE, related_name="deals"
+    )
     status = models.CharField(
         max_length=20,
         choices=DealStatus.choices,
@@ -69,7 +72,7 @@ class PropertyDealBase(models.Model):
         ]
 
     def calculate_commission(self):
-        return Decimal(self.property.price) * Decimal(self.commission_rate)
+        return Decimal(self.properties.price) * Decimal(self.commission_rate)
 
     def clean(self):
         if not self.pk:
@@ -103,7 +106,7 @@ class PropertyDealBase(models.Model):
 
 
 class Dealer(models.Model):
-    user = models.OneToOneField(
+    dealer = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="dealer_profile"
     )
     location = models.CharField(max_length=512)
@@ -111,18 +114,17 @@ class Dealer(models.Model):
     rera_certificate = models.URLField(blank=True, null=True)
 
     @property
-    def Dealersphone(self):
-        if self.user.role == "dealer":
-            return self.user.phone
+    def dealers_phone(self):
+        if self.dealer.role == "dealer":
+            return self.dealer.phone
         return None
 
     def clean(self):
-        if self.user.role != "dealer":
+        if self.dealer.role != "dealer":
             raise ValueError("User must have role=dealer")
 
     def __str__(self):
-        return self.user.name
-
+        return self.dealer.name
 
 class DealerProperty(PropertyDealBase):
     dealer = models.ForeignKey(
@@ -153,18 +155,17 @@ class Agency(models.Model):
     )
 
     @property
-    def Agenciesphone(self):
+    def agencies_phone(self):
         if self.agency.role == "agency":
             return self.agency.phone
         return None
 
     def clean(self):
-        if self.user.role != "agency":
+        if self.agency.role != "agency":
             raise ValueError("User must have role=agency")
 
     def __str__(self):
-        return self.user.name
-
+        return self.agency.name
 
 class AgencyProperty(PropertyDealBase):
     agency = models.ForeignKey(
