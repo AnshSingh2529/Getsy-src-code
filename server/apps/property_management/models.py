@@ -146,7 +146,7 @@ class Agency(models.Model):
         User, on_delete=models.CASCADE, related_name="agency_profile"
     )
     location = models.CharField(max_length=512, null=False, blank=False)
-    property = models.ManyToManyField(Property, through="AgencyProperty")
+    properties = models.ManyToManyField(Property, through="AgencyProperty")
     agents = models.ManyToManyField(Dealer, through="AgencyPropertyAgents")
     rera_certificate = models.URLField(
         max_length=200, blank=True, null=True, default="Not Varified"
@@ -154,8 +154,8 @@ class Agency(models.Model):
 
     @property
     def Agenciesphone(self):
-        if self.user.role == "agency":
-            return self.user.phone
+        if self.agency.role == "agency":
+            return self.agency.phone
         return None
 
     def clean(self):
