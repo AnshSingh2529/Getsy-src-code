@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+
+  client:
+    build: ./client
+    container_name: getsy-client
+    ports:
+      - "5173:3000"
+    networks:
+      - getsy_network
+    depends_on:
+      - server
+    restart: unless-stopped
+
+  server:
+    build: ./server
+    container_name: getsy-server
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_NAME=getsy_db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=anshpostgres2529
+    ports:
+      - "8000:8000"
+    networks:
+      - getsy_network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: getsy_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: anshpostgres2529
+    ports:
+      - "5432:5432"
+    networks:
+      - getsy_network
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data
+
+networks:
+  getsy_network:
+    driver: bridge
+
+# volumes:
+#   pgdata:
