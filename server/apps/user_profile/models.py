@@ -13,4 +13,4 @@ class UserProfile(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Profile of {self.user.username}"
+        return f"Profile of {self.user.email}"
