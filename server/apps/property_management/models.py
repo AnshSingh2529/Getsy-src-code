@@ -15,6 +15,14 @@ class Property(models.Model):
     isAvailable = models.BooleanField(default=True)
     views = models.IntegerField(null=True, blank=True)
     location = models.CharField(max_length=512, null=False, blank=False)
+    manager = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="propert_manager",
+        blank=False,
+        null=True,
+        limit_choices_to={"role__in": ["dealer", "agency"]},
+    )
 
 
 class PropertyDealBase(models.Model):
@@ -24,8 +32,10 @@ class PropertyDealBase(models.Model):
         PENDING = "pending", "Pending"
         ZEROCLIENT = "zeroclient", "Zero Client"
 
-    properties = models.ForeignKey(
-        "Property", on_delete=models.CASCADE, related_name="deals"
+    property = models.ForeignKey(
+        "Property",
+        on_delete=models.CASCADE,
+        related_name="%(class)s_deals",
     )
     status = models.CharField(
         max_length=20,
@@ -107,10 +117,18 @@ class PropertyDealBase(models.Model):
 
 class Dealer(models.Model):
     dealer = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="dealer_profile"
+        User,
+        on_delete=models.CASCADE,
+        related_name="dealer_profile",
+        limit_choices_to={"role": "dealer"},
     )
     location = models.CharField(max_length=512)
-    properties = models.ManyToManyField(Property, through="DealerProperty")
+    properties = models.ManyToManyField(
+        Property,
+        through="DealerProperty",
+        through_fields=("dealer", "property"),
+        related_name="dealers",
+    )
     rera_certificate = models.URLField(blank=True, null=True)
 
     @property
@@ -126,12 +144,10 @@ class Dealer(models.Model):
     def __str__(self):
         return self.dealer.name
 
+
 class DealerProperty(PropertyDealBase):
     dealer = models.ForeignKey(
         "Dealer", on_delete=models.CASCADE, related_name="property_deals"
-    )
-    property = models.ForeignKey(
-        "Property", on_delete=models.CASCADE, related_name="dealer_assignments"
     )
 
     class Meta:
@@ -145,10 +161,18 @@ class DealerProperty(PropertyDealBase):
 
 class Agency(models.Model):
     agency = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="agency_profile"
+        User,
+        on_delete=models.CASCADE,
+        related_name="agency_profile",
+        limit_choices_to={"role": "agency"},
     )
     location = models.CharField(max_length=512, null=False, blank=False)
-    properties = models.ManyToManyField(Property, through="AgencyProperty")
+    properties = models.ManyToManyField(
+        Property,
+        through="AgencyProperty",
+        through_fields=("agency", "property"),
+        related_name="agencies",
+    )
     agents = models.ManyToManyField(Dealer, through="AgencyPropertyAgents")
     rera_certificate = models.URLField(
         max_length=200, blank=True, null=True, default="Not Varified"
@@ -167,12 +191,10 @@ class Agency(models.Model):
     def __str__(self):
         return self.agency.name
 
+
 class AgencyProperty(PropertyDealBase):
     agency = models.ForeignKey(
         "Agency", on_delete=models.CASCADE, related_name="property_agency"
-    )
-    property = models.ForeignKey(
-        "Property", on_delete=models.CASCADE, related_name="agency_assignments"
     )
 
     class Meta:
