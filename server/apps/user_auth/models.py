@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
+    PermissionsMixin,
 )
 
 
@@ -43,14 +44,14 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     class ROLE_CHOICES(models.TextChoices):
         USER = "user", "User"
         DEALER = "dealer", "Dealer"
         AGENCY = "agency", "Agency"
 
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255, blank=False, null=False)
+    name = models.CharField(max_length=255, blank=False, null=True)
     phone = models.CharField(max_length=30, blank=False, unique=True, null=False)
     role = models.CharField(
         max_length=20, choices=ROLE_CHOICES.choices, default=ROLE_CHOICES.USER
@@ -64,7 +65,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name", "phone"]
+    REQUIRED_FIELDS = ["name", "phone", "password"]
 
     def __str__(self):
-        return f"{self.name} - {self.email} ({self.role}) - {self.phone}"
+        return f"Profile of {self.email}"
