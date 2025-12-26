@@ -52,7 +52,6 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "apps.user_auth",
     "apps.property_management",
-    "apps.user_profile.apps.UserProfileConfig",
 ]
 
 
