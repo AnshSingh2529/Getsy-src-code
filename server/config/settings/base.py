@@ -265,4 +265,6 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
     }
 }
+SOCIALACCOUNT_ADAPTER = "apps.user_auth.CustomSocialAccountAdapter"
+
 # End of file
