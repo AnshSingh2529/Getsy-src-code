@@ -62,6 +62,7 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 SITE_ID = 1
+
 """ 
 Identifies the site your app runs on, required by allauth—the default SITE_ID of 1 matches the first site in the django_site table (created during migration).
 """
