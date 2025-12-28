@@ -20,7 +20,7 @@ import LoginPage from "./pages/authentication/LoginPage.jsx";
 
 // Property Views Imports
 import CommonView from "./pages/PropertyViews/CommonView.jsx";
-import OwnersForBachelors from "./pages/PropertyViews/ThroughOwners/OwnersForBachelors.jsx";
+import DealersForBachelors from "./pages/PropertyViews/ThroughDealers/DealersForBachelors.jsx";
 import ForCouples from "./pages/PropertyViews/ThroughAgents/ForCouples.jsx";
 import ForFamilies from "./pages/PropertyViews/ThroughAgents/ForFamilies.jsx";
 
@@ -30,6 +30,8 @@ import Layout from "./Layout/Layout.jsx";
 
 import AgentDashboard from "./Dashboards/Agents/AgentDashboard.jsx";
 import AuthGate from "./components/AuthGate.jsx";
+import DealersDashboard from "./Dashboards/Dealers/DealersDashboard.jsx";
+import UserDashboard from "./Dashboards/User/UserDashboard.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,12 +53,19 @@ const router = createBrowserRouter(
       <Route path="agent-dashboard" element={<AgentDashboard />}>
         {/* Agent-Nested-Routes */}
       </Route>
+      <Route path="dealer-dashboard" element={<DealersDashboard/>}>
+        {/* Dealer-Nested-Routes */}
+      </Route>
+      <Route path="user-dashboard" element={<UserDashboard/>}>
+        {/* User-Nested-Routes */}
+      </Route>
+      
 
       {/* Property-Views-Section */}
       <Route path="property-view/common" element={<CommonView />} />
       <Route
-        path="property-view/owners-for-bachelors"
-        element={<OwnersForBachelors />}
+        path="property-view/dealers-for-bachelors"
+        element={<DealersForBachelors />}
       />
       <Route path="property-view/for-couples" element={<ForCouples />} />
       <Route path="property-view/for-families" element={<ForFamilies />} />

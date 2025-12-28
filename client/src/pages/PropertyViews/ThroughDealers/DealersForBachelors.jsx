@@ -1,9 +1,9 @@
 import React from 'react'
 
-const OwnersForBachelors = () => {
+const DealersForBachelors = () => {
   return (
-    <div>OwnersForBachelors</div>
+    <div>DealersForBachelors</div>
   )
 }
 
-export default OwnersForBachelors
+export default DealersForBachelors

@@ -20,7 +20,7 @@ import {
 import { useAuth } from "../../features/auth/hooks";
 import { ProfileDropdown } from "../utils/ProfileDropdown";
 
-function OwnerDashboard() {
+function DealersDashboard() {
   const [isSpinning, setSpinning] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
   const [onlineStatus] = useState(true);
@@ -747,4 +747,4 @@ function OwnerDashboard() {
   );
 }
 
-export default OwnerDashboard;
+export default DealersDashboard;
