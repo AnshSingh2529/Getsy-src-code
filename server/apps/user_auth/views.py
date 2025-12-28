@@ -20,6 +20,9 @@ def get_jwt_token(request):
                 "id": user.id,
                 "email": user.email,
                 "username": user.username,
+                "role": request.user.role,
             },
         }
     )
+
+
