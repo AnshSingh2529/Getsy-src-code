@@ -3,7 +3,6 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, User, PlusCircle, LucideHousePlug } from "lucide-react";
 import { useAuth } from "../features/auth/hooks.js";
-import ShowUserProfile from "./cards/profile/ShowUserProfile";
 import { createPortal } from "react-dom";
 import { getBottomNavItems } from "../utils/BottomNavs.js";
 import SearchBar from "./cards/others/SearchBar.jsx";
@@ -27,14 +26,7 @@ function Navbar({ toggleDrawer }) {
 
   // Handle search submission
   const handleSearch = () => {
-    console.log({
-      location: searchLocation,
-      pincode,
-      propertyType,
-      priceRange,
-      bedrooms,
-      amenities,
-    });
+  
   };
 
   // Handle scroll behavior for bottom nav
@@ -276,7 +268,7 @@ function Navbar({ toggleDrawer }) {
                 onClick={toggleProfile}
                 className={`hidden lg:flex items-center justify-center space-x-2 rounded-lg h-8 w-8 px-2 lg:px-3 py-1 lg:py-2 font-normal shadow-lg transition-all duration-300 text-sm ${theme.loginButtonBg} ${theme.loginButtonText}`}
               >
-                {user?.name?.[0]?.toUpperCase() || "U"}
+                {user?.username?.[0]?.toUpperCase() || "NIL"}
               </motion.button>
             )}
           </div>
@@ -354,15 +346,6 @@ function Navbar({ toggleDrawer }) {
       {/* Bottom spacer for mobile to prevent content from hiding behind bottom nav */}
       <div className="lg:hidden h-20"></div>
 
-      {/* Profile Drawer */}
-      <AnimatePresence>
-        {isProfileOpen && (
-          <ShowUserProfile
-            isOpen={isProfileOpen}
-            toggleDrawer={() => setIsProfileOpen(false)}
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 }

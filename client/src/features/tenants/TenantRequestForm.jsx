@@ -28,7 +28,6 @@ import {
 } from "../../utils/EnhanceButtons.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentRequest } from "../tenants/tenantSlice.js";
-import { getSocket, initSocket } from "../../api/services/socket.js";
 import BroadcastModal from "../broadcastingSearch/BroadcastModal.jsx";
 
 /*
@@ -90,10 +89,6 @@ const TenantRequestForm = ({ isOpen, onClose, onSubmit }) => {
   const authUser = useSelector((s) => s.auth?.user);
   const tenantId = authUser?.id || "mock-tenant-id";
 
-  // Initialize socket once
-  useEffect(() => {
-    initSocket("ws://localhost:8000/ws/requests/", tenantId);
-  }, [tenantId]);
 
   // Category state
   const categories = ["Residential", "Commercial", "Plot-Land"];

@@ -1,29 +1,18 @@
 // Layout/Layout.jsx
-import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import NavbarContainer from "./NavbarContainer.jsx";
-import DrawerContainer from "./DrawerContainer.jsx";
 import FooterContainer from "./FooterContainer.jsx";
 import PageTransition from "./PageTransitions.jsx";
 
 import useResponsive from "./UseResponsive.jsx";
 import useScroll from "./UseScroll.jsx";
-import useDrawer from "./UserDrawer.jsx";
 
 const Layout = () => {
   const location = useLocation();
   const { isMobile, navbarHeight } = useResponsive();
   const scrollY = useScroll();
-  const { isOpen, toggleDrawer, closeDrawer } = useDrawer();
-
-  // Close drawer when route changes (also handled inside useDrawer, but keep for safety)
-  useEffect(() => {
-    closeDrawer();
-    // smooth scroll to top on route change (keeps previous behavior)
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname, closeDrawer]);
 
   const noFooterRoutes = [
     "/user-dashboard",
@@ -104,18 +93,8 @@ const Layout = () => {
         <NavbarContainer
           navbarHeight={navbarHeight}
           scrollY={scrollY}
-          toggleDrawer={toggleDrawer}
         />
       )}
-
-      {/* Drawer */}
-      <DrawerContainer
-        isOpen={isOpen}
-        isMobile={isMobile}
-        navbarHeight={navbarHeight}
-        toggleDrawer={toggleDrawer}
-        closeDrawer={closeDrawer}
-      />
 
       {/* Main Content */}
       <main

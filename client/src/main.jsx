@@ -17,7 +17,6 @@ import Home from "./pages/Home.jsx";
 import HireDealerAgenciesModal from "./pages/HireDealerAgenciesModal.jsx";
 import PostProperty from "./pages/PostProperty.jsx";
 import LoginPage from "./pages/authentication/LoginPage.jsx";
-import RegisterPage from "./pages/authentication/RegisterPage.jsx";
 
 // Property Views Imports
 import CommonView from "./pages/PropertyViews/CommonView.jsx";
@@ -30,6 +29,7 @@ import Layout from "./Layout/Layout.jsx";
 // Dashboard Imports
 
 import AgentDashboard from "./Dashboards/Agents/AgentDashboard.jsx";
+import AuthGate from "./components/AuthGate.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,7 +45,6 @@ const router = createBrowserRouter(
       />
       <Route path="post-property" element={<PostProperty />} />
       <Route path="/auth/login" element={<LoginPage />} />
-      <Route path="/auth/register" element={<RegisterPage />} />
       {/* auth-routes */}
 
       {/* Dashboard-Section */}
@@ -70,7 +69,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <AuthGate>
+        <RouterProvider router={router} />
+      </AuthGate>
     </Provider>
   </StrictMode>
 );
