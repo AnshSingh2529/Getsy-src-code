@@ -258,6 +258,6 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
     }
 }
-SOCIALACCOUNT_ADAPTER = "apps.user_auth.CustomSocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "apps.user_auth.adapters.CustomSocialAccountAdapter"
 
 # End of file
