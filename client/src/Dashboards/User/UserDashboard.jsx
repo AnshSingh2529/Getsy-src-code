@@ -42,7 +42,7 @@ function UserDashboard() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
   };
 
-  const userRole = user?.role.capitalize();
+  const userRole = user?.role?.capitalize();
 
   const colors = {
     primary: "#101935",
