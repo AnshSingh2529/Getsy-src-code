@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { logout, setCredentials } from "../../features/auth/authSlice";
+import { isTokenExpiringSoon } from "../../utils/jwt";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
 
@@ -16,24 +17,17 @@ const rawBaseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await rawBaseQuery(args, api, extraOptions);
+  const state = api.getState();
+  const access = state.auth.access;
+  const refresh = state.auth.refresh;
 
-  // Only react to 401 (unauthorized)
-  if (result?.error?.status === 401) {
-    const refresh = api.getState().auth.refresh;
-
-    if (!refresh) {
-      api.dispatch(logout());
-      return result;
-    }
-
-    // IMPORTANT: refresh request must NOT include Authorization header
+  // 🔹 Step 3A: Pre-emptive refresh
+  if (access && refresh && isTokenExpiringSoon(access)) {
     const refreshResult = await rawBaseQuery(
       {
         url: "api/token/refresh/",
         method: "POST",
         body: { refresh },
-        headers: {}, // override auth header
       },
       api,
       extraOptions
@@ -43,15 +37,42 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       api.dispatch(
         setCredentials({
           access: refreshResult.data.access,
-          refresh, // keep existing refresh token
-          user: api.getState().auth.user,
+          refresh: refreshResult.data.refresh || refresh,
+          user: state.auth.user,
+        })
+      );
+    } else {
+      api.dispatch(logout());
+      return { error: { status: 401 } };
+    }
+  }
+
+  // 🔹 Step 3B: Normal request
+  let result = await rawBaseQuery(args, api, extraOptions);
+
+  // 🔹 Step 3C: Reactive refresh (fallback)
+  if (result?.error?.status === 401 && refresh) {
+    const refreshResult = await rawBaseQuery(
+      {
+        url: "api/token/refresh/",
+        method: "POST",
+        body: { refresh },
+      },
+      api,
+      extraOptions
+    );
+
+    if (refreshResult?.data?.access) {
+      api.dispatch(
+        setCredentials({
+          access: refreshResult.data.access,
+          refresh: refreshResult.data.refresh || refresh,
+          user: state.auth.user,
         })
       );
 
-      // retry original request
       result = await rawBaseQuery(args, api, extraOptions);
     } else {
-      // refresh expired or blacklisted
       api.dispatch(logout());
     }
   }
