@@ -1,22 +1,35 @@
 from rest_framework.permissions import BasePermission
+from .models import User
 
 
 class IsAgency(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == "agency"
+    def has_object_permission(self, request, view, obj):
+        return (
+            request.user.role == User.RoleChoices.AGENCY and obj.owner == request.user
+        )
 
 
 class IsDealer(BasePermission):
-    def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role in [
-            "dealer",
-            "agency",
-        ]
+    """
+    Allows access only to Dealer.
+    """
+
+    def has_permission(self, request, view, obj):
+        return (
+            request.user.is_authenticated
+            and request.user.role == User.RoleChoices.DEALER
+        )
 
 
 class IsEndUser(BasePermission):
+    """
+    Allows access only to Default User.
+    """
+
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == "user"
+        return (
+            request.user.is_authenticated and request.user.role == User.RoleChoices.USER
+        )
 
 
 class IsAgencyAdminOrDealerOwner(BasePermission):
