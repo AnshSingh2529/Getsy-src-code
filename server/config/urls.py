@@ -6,12 +6,16 @@ from django.conf.urls.static import static
 from drf_spectacular.views import (
     SpectacularAPIView,
 )
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("api/", include("apps.user_auth.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 
