@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.google",
     "corsheaders",
     "storages",
+    "drf_spectacular",
 ]
 
 LOCAL_APPS = [
@@ -85,6 +86,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 ROOT_URLCONF = "config.urls"
@@ -251,5 +253,15 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 SOCIALACCOUNT_ADAPTER = "apps.user_auth.adapters.CustomSocialAccountAdapter"
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Getsy Api",
+    "DESCRIPTION": "RealState Agency-Dealer-Property Managing and sharing Software",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
+}
+
 
 # End of file
