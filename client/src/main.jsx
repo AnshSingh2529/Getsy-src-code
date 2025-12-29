@@ -31,6 +31,7 @@ import Layout from "./Layout/Layout.jsx";
 import AgentDashboard from "./Dashboards/Agents/AgentDashboard.jsx";
 import AuthGate from "./components/AuthGate.jsx";
 import DealersDashboard from "./Dashboards/Dealers/DealersDashboard.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,11 +53,13 @@ const router = createBrowserRouter(
       <Route path="agent-dashboard" element={<AgentDashboard />}>
         {/* Agent-Nested-Routes */}
       </Route>
-      <Route path="dealer-dashboard" element={<DealersDashboard/>}>
+      <Route path="dealer-dashboard" element={<DealersDashboard />}>
         {/* Dealer-Nested-Routes */}
       </Route>
 
-      
+      <Route path="user-profile" element={<UserProfile />}>
+        {/* User-Nested-Routes */}
+      </Route>
 
       {/* Property-Views-Section */}
       <Route path="property-view/common" element={<CommonView />} />
