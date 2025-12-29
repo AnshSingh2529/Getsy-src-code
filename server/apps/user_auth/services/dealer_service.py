@@ -1,5 +1,4 @@
-from datetime import timezone
-from ..models import Dealer
+from ..models import Dealer, DealerWorkingArea, User
 from django.db import transaction
 
 
@@ -15,21 +14,31 @@ def _parse_number_from_public_id(public_id: str) -> int:
         return 0
 
 
-def generate_dlr_id():
+def _generate_dlr_id():
     last = Dealer.objects.select_for_update().order_by("-id").first()
+
+    next_number = 1
     if last and last.dlr_id:
-        last_number = _parse_number_from_public_id(last.dlr_id)
-        next_number = last_number + 1
-    else:
-        next_number = 1
+        next_number = _parse_number_from_public_id(last.dlr_id) + 1
+
     return f"{DEALER_PREFIX}-{str(next_number).zfill(DEALER_PAD)}"
 
 
 @transaction.atomic
-def create_dealer(**validated_data):
-    dealer = Dealer(**validated_data)
-    dealer.dlr_id = generate_dlr_id()
+def create_dealer_with_working_area(*, dealer_data, working_area_data, user):
+    """
+    Single source of truth for Dealer creation
+    """
+    if user.role != User.RoleChoices.USER:
+        raise ValueError("User already has an assigned role")
+    dealer = Dealer(
+        user=user,
+        **dealer_data,
+    )
+    dealer.dlr_id = _generate_dlr_id()
     dealer.save()
+    DealerWorkingArea.objects.create(dealer=dealer, **working_area_data)
+    user.role = User.RoleChoices.DEALER
+    user.save(update_fields=["role"])
+
     return dealer
-
-
