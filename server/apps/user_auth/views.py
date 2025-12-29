@@ -24,6 +24,10 @@ from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import logout as django_logout
+
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
 
 # from apps.user_auth.services.connection_service import (
 #     create_connection_request,
@@ -52,6 +56,41 @@ def get_jwt_token(request):
                 "role": request.user.role,
             },
         }
+    )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def logout_view(request):
+    """
+    Proper logout:
+    - Blacklists refresh token
+    - Logs out Django session (Google/allauth)
+    """
+
+    refresh_token = request.data.get("refresh")
+
+    if not refresh_token:
+        return Response(
+            {"detail": "Refresh token required"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+    except TokenError:
+        return Response(
+            {"detail": "Invalid or expired refresh token"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    # Logout Django session (important for allauth)
+    django_logout(request)
+
+    return Response(
+        {"detail": "Successfully logged out"},
+        status=status.HTTP_205_RESET_CONTENT,
     )
 
 
