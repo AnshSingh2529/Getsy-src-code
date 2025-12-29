@@ -3,7 +3,7 @@ from .models import (
     User,
     Dealer,
     Agency,
-    AgencyDealerConnection,
+    # AgencyDealerConnection,
     AgencyAddress,
     DealerWorkingArea,
 )
@@ -68,13 +68,11 @@ class DealerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dealer
         fields = [
-            "name",
             "phone",
             "working_area",
         ]
         read_only_fields = [
             "dlr_id",
-            "name",
             "phone",
             "is_active",
             "created_at",

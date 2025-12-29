@@ -7,30 +7,30 @@ from rest_framework.response import Response
 from apps.user_auth.permissions import IsAgency, IsDealer, IsEndUser
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 
-from server.apps.user_auth.services.agency_service import (
+from apps.user_auth.services.agency_service import (
     create_agency_with_role_address,
 )
-from server.apps.user_auth.services.dealer_service import (
+from apps.user_auth.services.dealer_service import (
     create_dealer_with_working_area,
 )
 from .serializers import (
     DealerSerializer,
     AgencySerializer,
-    AgencyDealerConnectionSerializer,
-    AgencyDealerRequestSerializer,
+    # AgencyDealerConnectionSerializer,
+    # AgencyDealerRequestSerializer,
 )
-from .models import Dealer, Agency, AgencyDealerConnection
+from .models import Dealer, Agency
 from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 
-from apps.user_auth.services.connection_service import (
-    create_connection_request,
-    approve_connection,
-    decline_connection,
-)
-from .permissions import IsAgencyAdminOrDealerOwner
+# from apps.user_auth.services.connection_service import (
+#     create_connection_request,
+#     approve_connection,
+#     decline_connection,
+# )
+# from .permissions import IsAgencyAdminOrDealerOwner
 
 
 @api_view(["GET"])
@@ -147,6 +147,7 @@ class AgencyViewSet(
         )
 
         serializer.instance = agency
+
 
 class DealerViewSet(
     mixins.CreateModelMixin,

@@ -80,7 +80,7 @@ class DealerWorkingArea(models.Model):
     )
     pincode = models.IntegerField(blank=False, null=False)
     city = models.CharField(max_length=50, blank=False, null=True)
-    Area = models.CharField(help_text="Your Society | Field working area")
+    area = models.CharField(help_text="Your Society | Field working area")
 
 
 # class AgencyDealerConnection(models.Model):
