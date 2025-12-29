@@ -3,7 +3,7 @@ import { logout, setCredentials } from "../../features/auth/authSlice";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
 
-const baseQuery = fetchBaseQuery({
+const rawBaseQuery = fetchBaseQuery({
   baseUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
@@ -16,8 +16,9 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
+  let result = await rawBaseQuery(args, api, extraOptions);
 
+  // Only react to 401 (unauthorized)
   if (result?.error?.status === 401) {
     const refresh = api.getState().auth.refresh;
 
@@ -26,27 +27,31 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       return result;
     }
 
-    const refreshResult = await baseQuery(
+    // IMPORTANT: refresh request must NOT include Authorization header
+    const refreshResult = await rawBaseQuery(
       {
-        url: "auth/token/refresh/",
+        url: "api/token/refresh/",
         method: "POST",
         body: { refresh },
+        headers: {}, // override auth header
       },
       api,
       extraOptions
     );
 
-    if (refreshResult?.data) {
+    if (refreshResult?.data?.access) {
       api.dispatch(
         setCredentials({
           access: refreshResult.data.access,
-          refresh: refreshResult.data.refresh || refresh,
+          refresh, // keep existing refresh token
           user: api.getState().auth.user,
         })
       );
 
-      result = await baseQuery(args, api, extraOptions);
+      // retry original request
+      result = await rawBaseQuery(args, api, extraOptions);
     } else {
+      // refresh expired or blacklisted
       api.dispatch(logout());
     }
   }
@@ -58,13 +63,15 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
+    // ⚠️ This endpoint name is misleading
+    // JWTs come from Google session → get_jwt_token
     fetchJwt: builder.query({
-      query: () => "auth/token/",
+      query: () => "api/auth/get-jwt-token/",
     }),
 
     logout: builder.mutation({
       query: (refresh) => ({
-        url: "accounts/logout/",
+        url: "api/auth/logout/",
         method: "POST",
         body: { refresh },
       }),
