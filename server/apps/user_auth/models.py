@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     class RoleChoices(models.TextChoices):
         USER = "user", "User"
-        Agency = "agency", "Agency"
-        Dealer = "dealer", "Dealer"
+        AGENCY = "agency", "Agency"
+        DEALER = "dealer", "Dealer"
 
     email = models.EmailField(unique=True)
     role = models.CharField(
@@ -52,7 +52,7 @@ class AgencyAddress(models.Model):
     pincode = models.IntegerField(blank=False, null=False)
     landmark = models.CharField(max_length=255, blank=False, null=True)
     city = models.CharField(max_length=50, blank=False, null=True)
-    Area = models.CharField(help_text="Your Society | Field working area")
+    area = models.CharField(help_text="Your Society | Field working area")
 
 
 class Dealer(models.Model):
@@ -83,50 +83,50 @@ class DealerWorkingArea(models.Model):
     Area = models.CharField(help_text="Your Society | Field working area")
 
 
-class AgencyDealerConnection(models.Model):
-    STATUS_CHOICES = (
-        ("pending", "Pending"),
-        ("approved", "Approved"),
-        ("declined", "Declined"),
-    )
+# class AgencyDealerConnection(models.Model):
+#     STATUS_CHOICES = (
+#         ("pending", "Pending"),
+#         ("approved", "Approved"),
+#         ("declined", "Declined"),
+#     )
 
-    REQUESTED_BY_CHOICES = (
-        ("agency", "Agency"),
-        ("dealer", "Dealer"),
-    )
+#     REQUESTED_BY_CHOICES = (
+#         ("agency", "Agency"),
+#         ("dealer", "Dealer"),
+#     )
 
-    agency = models.ForeignKey(
-        Agency,
-        on_delete=models.CASCADE,
-        related_name="dealer_connections",
-    )
+#     agency = models.ForeignKey(
+#         Agency,
+#         on_delete=models.CASCADE,
+#         related_name="dealer_connections",
+#     )
 
-    dealer = models.ForeignKey(
-        Dealer,
-        on_delete=models.CASCADE,
-        related_name="agency_connections",
-    )
+#     dealer = models.ForeignKey(
+#         Dealer,
+#         on_delete=models.CASCADE,
+#         related_name="agency_connections",
+#     )
 
-    requested_by = models.CharField(
-        max_length=20,
-        choices=REQUESTED_BY_CHOICES,
-    )
+#     requested_by = models.CharField(
+#         max_length=20,
+#         choices=REQUESTED_BY_CHOICES,
+#     )
 
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default="pending",
-    )
+#     status = models.CharField(
+#         max_length=20,
+#         choices=STATUS_CHOICES,
+#         default="pending",
+#     )
 
-    requested_at = models.DateTimeField(auto_now_add=True)
-    responded_at = models.DateTimeField(null=True, blank=True)
+#     requested_at = models.DateTimeField(auto_now_add=True)
+#     responded_at = models.DateTimeField(null=True, blank=True)
 
-    class Meta:
-        unique_together = ("agency", "dealer")
-        indexes = [
-            models.Index(fields=["status"]),
-            models.Index(fields=["requested_by"]),
-        ]
+#     class Meta:
+#         unique_together = ("agency", "dealer")
+#         indexes = [
+#             models.Index(fields=["status"]),
+#             models.Index(fields=["requested_by"]),
+#         ]
 
-    def __str__(self):
-        return f"{self.agency} ↔ {self.dealer} ({self.status})"
+#     def __str__(self):
+#         return f"{self.agency} ↔ {self.dealer} ({self.status})"
