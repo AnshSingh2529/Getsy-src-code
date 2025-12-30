@@ -25,7 +25,7 @@ class Agency(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="agency")
     email = models.EmailField(max_length=255, unique=True, blank=False, null=True)
-    phone = models.IntegerField(blank=False, null=False)
+    phone = models.CharField(max_length=12, blank=False, null=False)
     rera_cert_number = models.CharField(
         max_length=255, blank=False, null=False, unique=True
     )
