@@ -26,7 +26,7 @@ import {
 const UserProfile = () => {
   const [activeSection, setActiveSection] = useState("profile");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("auto");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Mock user data
