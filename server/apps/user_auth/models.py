@@ -49,7 +49,7 @@ class AgencyAddress(models.Model):
         related_name="addresses",
         on_delete=models.CASCADE,
     )
-    pincode = models.IntegerField(blank=False, null=False)
+    pincode = models.CharField(max_length=10 ,blank=False, null=False)
     landmark = models.CharField(max_length=255, blank=False, null=True)
     city = models.CharField(max_length=50, blank=False, null=True)
     area = models.CharField(help_text="Your Society | Field working area")

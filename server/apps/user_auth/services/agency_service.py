@@ -17,6 +17,7 @@ def create_agency_with_role_address(*, agency_data, address_data, user: User):
         owner=user,
         **agency_data,
     )
+    agency.save()
     AgencyAddress.objects.create(
         agency=agency,
         **address_data,
