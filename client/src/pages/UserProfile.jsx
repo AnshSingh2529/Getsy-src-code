@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import {
   User,
   MessageSquare,
@@ -22,6 +25,10 @@ import {
   Home,
   Menu,
 } from "lucide-react";
+import { logout as logoutAction } from "../features/auth/authSlice";
+import { authApi, useLogoutMutation } from "../api/api/authApi.js";
+import store from "../store/store.js";
+import { useAuth } from "../features/auth/hooks.js";
 
 const UserProfile = () => {
   const [activeSection, setActiveSection] = useState("profile");
@@ -29,15 +36,14 @@ const UserProfile = () => {
   const [theme, setTheme] = useState("auto");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Mock user data
-  const user = {
-    name: "Sarah Anderson",
-    email: "sarah.anderson@email.com",
-    phone: "+1 (555) 123-4567",
-    role: "USER",
-    avatar: "SA",
-    verified: true,
-    status: "Active",
+  const { user } = useAuth();
+  const data = {
+    name: user?.username,
+    email: user?.email,
+    role: user?.role,
+    avatar: user?.username[0],
+    verified: user?.isAuthenticated,
+    status: !user?.username ? "not_active" : "active"
   };
 
   useEffect(() => {
@@ -230,9 +236,28 @@ const UserProfile = () => {
     }
   };
 
-  const handleLogout = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logoutApi] = useLogoutMutation();
+
+  const handleLogout = async () => {
     setShowLogoutModal(false);
-    console.log("User logged out");
+
+    try {
+      const refresh = store.getState().auth.refresh;
+
+      if (refresh) {
+        await logoutApi(refresh).unwrap();
+      }
+    } catch (error) {
+      console.error("Error in logging out - ", error);
+    } finally {
+      dispatch(logoutAction());
+
+      dispatch(authApi.util.resetApiState());
+
+      navigate("/", { replace: true });
+    }
   };
 
   const renderContent = () => {
@@ -263,7 +288,7 @@ const UserProfile = () => {
                     Full Name
                   </label>
                   <div className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white text-sm sm:text-base">
-                    {user.name}
+                    {data.name}
                   </div>
                 </div>
 
@@ -273,19 +298,19 @@ const UserProfile = () => {
                   </label>
                   <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-300 text-sm sm:text-base">
                     <Mail className="w-4 h-4 flex-shrink-0" />
-                    <span className="truncate">{user.email}</span>
+                    <span className="truncate">{data.email}</span>
                   </div>
                 </div>
 
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Phone Number
                   </label>
                   <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white text-sm sm:text-base">
                     <Phone className="w-4 h-4 flex-shrink-0" />
-                    {user.phone}
+                    {data.phone}
                   </div>
-                </div>
+                </div> */}
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -294,10 +319,10 @@ const UserProfile = () => {
                   <div className="px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <span
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getRoleBadgeColor(
-                        user.role
+                        data.role
                       )}`}
                     >
-                      {user.role}
+                      {data.role}
                     </span>
                   </div>
                 </div>
@@ -322,7 +347,7 @@ const UserProfile = () => {
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
                       <span className="text-sm font-medium text-blue-700 dark:text-blue-400">
-                        {user.status}
+                        {data.status}
                       </span>
                     </div>
                   </div>
@@ -892,23 +917,23 @@ const UserProfile = () => {
         <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg flex-shrink-0">
-              {user.avatar}
+              {data.avatar}
             </div>
             <div className="flex-1 min-w-0">
               <h2 className="font-semibold text-gray-900 dark:text-white truncate text-sm sm:text-base">
-                {user.name}
+                {data.name}
               </h2>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
-                {user.email}
+                {data.email}
               </p>
             </div>
           </div>
           <span
             className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getRoleBadgeColor(
-              user.role
+              data.role
             )}`}
           >
-            {user.role}
+            {data.role}
           </span>
         </div>
 
