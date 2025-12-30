@@ -286,5 +286,10 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+# LOGIN_REDIRECT_URL = "http://localhost:5173/auth/callback"  # later if you check user role them give authorization to dashboard or other things
+
+LOGIN_REDIRECT_URL = "http://localhost:5173/user-profile"
+LOGOUT_REDIRECT_URL = "http://localhost:5173/"
+
 
 # End of file
