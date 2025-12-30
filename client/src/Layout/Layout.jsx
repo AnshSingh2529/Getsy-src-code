@@ -48,7 +48,7 @@ const Layout = () => {
   );
 
   return (
-    <div className="min-h-screen select-none bg-gray-50 dark:bg-[#131515] transition-colors duration-300">
+    <div className="min-h-screen select-none bg-surface-dark dark:bg-[#131515] transition-colors duration-300">
       {/* Toaster kept in Layout so it's globally available */}
       <Toaster
         position={isMobile ? "top-center" : "top-right"}

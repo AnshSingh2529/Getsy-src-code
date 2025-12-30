@@ -48,7 +48,7 @@ const HomePage = ({ properties }) => {
   };
 
   return (
-    <div className="h-full w-full bg-[#131515] overflow-y-auto p-4">
+    <div className="h-full w-full bg-[#131515] overflow-y-auto m-0 p-4">
       {/* Desktop Layout - Two Column Split Screen */}
       <div className="hidden lg:flex lg:h-screen lg:overflow-hidden">
         {/* Right Section - Banner (Fixed, Centered) */}

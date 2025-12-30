@@ -132,7 +132,7 @@ function Navbar({ toggleDrawer }) {
   };
 
   const toggleProfile = () => {
-    navigate('dealer-dashboard')
+    navigate('user-profile')
   };
 
   const navLinkClasses = `text-sm font-normal transition-all duration-400 ease-in-out rounded-lg px-3 py-2 ${theme.textColor} ${theme.textHoverColor}`;
