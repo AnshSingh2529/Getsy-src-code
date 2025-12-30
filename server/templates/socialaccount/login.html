@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Continue with Google</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: #020617;
+      padding: 32px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .btn {
+      margin-top: 24px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(to right, #2563eb, #3b82f6);
+      color: white;
+    }
+    .sub {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Continue with Google</h2>
+
+  <p class="sub">
+    You’re signing in using your Google account.
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn" type="submit">
+      Continue
+    </button>
+  </form>
+</div>
+
+</body>
+</html>

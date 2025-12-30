@@ -24,9 +24,7 @@ function Navbar({ toggleDrawer }) {
   );
 
   // Handle search submission
-  const handleSearch = () => {
-  
-  };
+  const handleSearch = () => {};
 
   // Handle scroll behavior for bottom nav
   useEffect(() => {
@@ -68,7 +66,7 @@ function Navbar({ toggleDrawer }) {
         textColor: "text-gray-300",
         textHoverColor: "hover:text-white",
         activeTextColor: "bg-gray-800/50 text-white",
-        heartColor: "text-gray-400 hover:text-white",
+        heartColor: "text-gray-100 hover:text-red-900",
         dividerColor: "bg-gray-700",
         loginButtonBg:
           "bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700",
@@ -100,7 +98,7 @@ function Navbar({ toggleDrawer }) {
       textColor: "text-gray-600",
       textHoverColor: "hover:text-gray-400",
       activeTextColor: "bg-gray-800/60 text-white shadow-2xl",
-      heartColor: "text-gray-500 hover:text-gray-400",
+      heartColor: "text-gray-100 hover:text-red-900",
       dividerColor: "bg-gray-700",
       loginButtonBg:
         "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600",
@@ -132,10 +130,10 @@ function Navbar({ toggleDrawer }) {
   };
 
   const toggleProfile = () => {
-    navigate('user-profile')
+    navigate("user-profile");
   };
 
-  const navLinkClasses = `text-sm font-normal transition-all duration-400 ease-in-out rounded-lg px-3 py-2 ${theme.textColor} ${theme.textHoverColor}`;
+  const navLinkClasses = `text-sm font-normal transition-all duration-400 ease-in-out rounded-lg px-4 py-2 shadow-none ${theme.textColor} ${theme.textHoverColor}`;
 
   const getActiveLinkStyle = (isActive) => {
     if (isActive) {
@@ -144,11 +142,12 @@ function Navbar({ toggleDrawer }) {
         background: theme.activeTextColor.includes("gradient")
           ? "bg-gray-900"
           : theme.activeTextColor.replace("bg-", ""),
-        
       };
     }
     return {};
   };
+  const POST_PROPERTY_ROLES = ["agency", "dealer"];
+  const canPostProperty = POST_PROPERTY_ROLES.includes(user?.role);
 
   // Bottom nav items configuration
   const bottomNavItems = getBottomNavItems(user, toggleProfile);
@@ -159,10 +158,10 @@ function Navbar({ toggleDrawer }) {
         className={`fixed z-50 top-0 w-full transition-all duration-500 ${theme.navbarBg}`}
       >
         {/* Desktop and Tablet Navigation */}
-        <div className="h-16 sm:h-14 md:h-16 lg:h-20 px-5 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between">
+        <div className="h-18 sm:h-14 md:h-16 lg:h-20 px-5 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between py-4">
           {/* Left Section - Logo */}
           <motion.img
-            src="../src/assets/images/Getsy_logo.png"
+            src="../src/assets/images/web-logo.png"
             alt="logo"
             className={`cursor-pointer w-28 h-auto sm:w-20 md:w-24 lg:w-28 transition-all duration-500`}
             style={{ filter: theme.logoFilter }}
@@ -200,7 +199,7 @@ function Navbar({ toggleDrawer }) {
             </NavLink>
 
             {/* Desktop CTA Button */}
-            {user?.role === "dealer" && (
+            {canPostProperty && (
               <div className="relative px-8 py-2">
                 <motion.button
                   whileTap={{ scale: 0.92 }}
@@ -221,7 +220,7 @@ function Navbar({ toggleDrawer }) {
           {/* Right Section */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Post Property Button - Mobile only */}
-            {user?.role === "dealer" && (
+            {canPostProperty && (
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={handlePostProperty}
@@ -236,10 +235,10 @@ function Navbar({ toggleDrawer }) {
             <motion.div
               whileTap={{ scale: 0.92 }}
               onClick={() => navigate("/wishlist")}
-              className="cursor-pointer p-1 sm:p-2 rounded-lg transition-colors duration-300"
+              className="cursor-pointer p-1 sm:p-2 transition-colors duration-300 font-mono"
             >
               <Heart
-                className={`size-4 sm:size-5 transition-colors duration-300 ${theme.heartColor}`}
+                className={`size-4 sm:size-5  ${theme.heartColor}`}
               />
             </motion.div>
 
@@ -344,7 +343,6 @@ function Navbar({ toggleDrawer }) {
 
       {/* Bottom spacer for mobile to prevent content from hiding behind bottom nav */}
       <div className="lg:hidden h-20"></div>
-
     </>
   );
 }

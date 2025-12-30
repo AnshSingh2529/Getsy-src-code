@@ -4,11 +4,11 @@ import {GiftIcon} from "lucide-react";
 export default function GoogleLoginModal() {
   const handleGoogleLogin = () => {
     window.location.href =
-      "http://localhost:8000/accounts/google/login/?process=login/";
+      "http://localhost:8000/accounts/google/login/?process=login";
   };
 
   return (
-    <div className="flex items-center justify-center backdrop-blur-md">
+    <div className="min-h-screen flex items-center justify-center backdrop-blur-md">
       {/* Modal Card */}
       <div className="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all border border-gray-700">
         {/* Logo/Icon Section */}
@@ -28,8 +28,8 @@ export default function GoogleLoginModal() {
               />
             </svg>
           </div>
-          <h2 className="flex justify-center items-center space-x-2 text-3xl font-bold text-gray-400 mb-2">
-            <span>More Benefit Awaits</span>
+          <h2 className="flex justify-center items-center space-x-2 md:text-3xl text-xl font-bold text-gray-400 mb-2">
+            <span className="md:w-max lg:w-full">More Benefit Awaits</span>
             <span><GiftIcon color="yellow"/></span> 
           </h2>
           <p className="text-gray-500 text-sm">Sign in to continue to your account</p>
