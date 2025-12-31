@@ -72,8 +72,8 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -84,7 +84,6 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
@@ -291,5 +290,7 @@ SPECTACULAR_SETTINGS = {
 LOGIN_REDIRECT_URL = "http://localhost:5173/user-profile"
 LOGOUT_REDIRECT_URL = "http://localhost:5173/"
 
+SESSION_COOKIE_DOMAIN = "api.localhost"
+CSRF_COOKIE_DOMAIN = "api.localhost"
 
 # End of file
