@@ -84,8 +84,6 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
-    // ⚠️ This endpoint name is misleading
-    // JWTs come from Google session → get_jwt_token
     fetchJwt: builder.query({
       query: () => "api/auth/get-jwt-token/",
     }),
