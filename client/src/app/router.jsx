@@ -5,7 +5,20 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Layout from "../layouts/Layout.jsx";
-import 
+import {
+  Home,
+  PostProperty,
+  LoginPage,
+  UserProfile,
+  NotFound,
+  HireDealerAgenciesModal,
+} from "../pages";
+import LoginPage from "../pages/authentication/LoginPage.jsx";
+import CommonView from "../pages/propertyPages/CommonView.jsx";
+import { ForCouples, ForFamilies } from "../pages/propertyPages/ThroughAgents";
+import AgencyDashboard from "../dashboards/Agents/AgencyDashboard.jsx";
+import DealersDashboard from "../dashboards/Dealers/DealersDashboard.jsx";
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -32,13 +45,13 @@ export const router = createBrowserRouter(
         <Route path="property-view/for-couples" element={<ForCouples />} />
         <Route path="property-view/for-families" element={<ForFamilies />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="user-profile" element={<UserProfile />}>
         {/* User-Nested-Routes */}
       </Route>
       {/* Dashboard-Section */}
-      <Route path="agent-dashboard" element={<AgentDashboard />}>
+      <Route path="agent-dashboard" element={<AgencyDashboard />}>
         {/* Agent-Nested-Routes */}
       </Route>
       <Route path="dealer-dashboard" element={<DealersDashboard />}>
