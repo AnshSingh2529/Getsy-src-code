@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import RentPriceAndCharges from "../components/cards/postProperty/RentPriceAndCharges.jsx";
 import RentAdditionalDetails from "../components/cards/postProperty/RentAdditionalDetails.jsx";
 import CustomSelect from "../components/cards/postProperty/CustomSelect.jsx";
-import { colors } from "../utils/Colors.js";
+import { colors } from "../../utils/Colors.js";
 
 const PostProperty = () => {
   const [selectedUnitType, setSelectedUnitType] = useState(""); // Start with empty string

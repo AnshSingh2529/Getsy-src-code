@@ -1,21 +1,21 @@
 import {
-  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+// import from layouts...
 import Layout from "../layouts/Layout.jsx";
-import {
-  Home,
-  PostProperty,
-  LoginPage,
-  UserProfile,
-  NotFound,
-  HireDealerAgenciesModal,
-} from "../pages";
+// import from pages...
+import Home from "../pages/Home.jsx";
+import PostProperty from "../pages/postProperty/PostProperty.jsx";
+import HireDealerAgenciesModal from "../pages/HireDealerAgenciesModal.jsx";
 import LoginPage from "../pages/authentication/LoginPage.jsx";
 import CommonView from "../pages/propertyPages/CommonView.jsx";
-import { ForCouples, ForFamilies } from "../pages/propertyPages/ThroughAgents";
+import ForCouples from "../pages/propertyPages/ThroughAgents/ForCouples.jsx";
+import ForFamilies from "../pages/propertyPages/ThroughAgents/ForFamilies.jsx";
+import UserProfile from "../pages/UserProfile.jsx";
+import NotFound from "../pages/NotFound.jsx";
+// import form dashboard...
 import AgencyDashboard from "../dashboards/Agents/AgencyDashboard.jsx";
 import DealersDashboard from "../dashboards/Dealers/DealersDashboard.jsx";
 

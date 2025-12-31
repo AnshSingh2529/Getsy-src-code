@@ -1,19 +1,7 @@
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import {
-  Search,
-  MapPin,
-  Filter,
-  X,
-  Calendar,
-  Home,
-  DollarSign,
-  Star,
-  Upload,
-  LocateFixedIcon,
-  MapPinHouse,
-} from "lucide-react";
-import AutoExpandingTextarea from "./AutoExpandingTextArea";
+import { useState } from "react";
+import { Filter, Home, DollarSign, Star } from "lucide-react";
+import AutoExpandingTextarea from "../../utils/AutoExpandingTextArea.jsx";
 import { TbUpload } from "react-icons/tb";
 import TenantRequestModal from "../../../features/tenants/TenantRequestForm.jsx";
 import {
@@ -52,9 +40,9 @@ import {
   oceanBreeze,
   mintFresh,
   berryBlast,
-} from "../../../utils/EnhanceButtons.js";
+} from "../../utils/EnhanceButtons.js";
 import { useLocation } from "react-router-dom";
-import SearchBar from "./SearchBar.jsx";
+import SearchBar from "../cards/others/SearchBar.jsx";
 import PropertyModeSelector from "./PropertyModeSelector.jsx";
 
 const SearchCard = () => {
@@ -139,13 +127,16 @@ const SearchCard = () => {
       <div className="border-t border-gray-700">
         <div className="flex-1 p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Quick Actions */}
-          <motion.div variants={itemVariants} className="border-b border-gray-700/50 pb-4">
+          <motion.div
+            variants={itemVariants}
+            className="border-b border-gray-700/50 pb-4"
+          >
             <h3 className="text-white font-medium text-sm sm:text-base mb-4">
               Quick Search
             </h3>
             <PropertyModeSelector />
           </motion.div>
-          
+
           {/* divider */}
           <motion.div variants={itemVariants}>
             <button

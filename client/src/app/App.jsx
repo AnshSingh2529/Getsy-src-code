@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { bootstrapAuth } from "../store/auth/authSlice";
-import { router } from "./router.jsx";
 import { RouterProvider } from "react-router-dom";
+// local imports...
+import { bootstrapAuth } from "../store/auth/authSlice.js";
+import { router } from "./router.jsx";
 
 export default function App() {
   const dispatch = useDispatch();

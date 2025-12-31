@@ -1,5 +1,5 @@
-import SocialMediaCards from "./cards/others/SocialMediaCards.jsx";
-import { colors } from "../utils/Colors.js";
+import SocialMediaCards from "./SocialMediaCards.jsx";
+import { colors } from "../../utils/Colors.js";
 import { 
   Mail, 
   Phone, 

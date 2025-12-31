@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, User, PlusCircle, LucideHousePlug } from "lucide-react";
 import { useAuth } from "../features/auth/hooks.js";
 import { createPortal } from "react-dom";
-import { getBottomNavItems } from "../utils/BottomNavs.js";
-import SearchBar from "./cards/others/SearchBar.jsx";
+import { getBottomNavItems } from "../../utils/BottomNavs.js";
+import SearchBar from "../cards/others/SearchBar.jsx";
 
 function BottomNavPortal({ children }) {
   if (typeof document === "undefined") return null;
