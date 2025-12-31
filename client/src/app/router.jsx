@@ -3,6 +3,10 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+// """""""""""""""
+// local imports
+// """""""""""""""
+import ProtectedRoutes from "../routes/ProtectedRoutes.js";
 // import from layouts...
 import Layout from "../layouts/Layout.jsx";
 // import from pages...
@@ -32,7 +36,11 @@ export const router = createBrowserRouter(
           path="top-dealer-agencies-list"
           element={<HireDealerAgenciesModal />}
         />
-        <Route path="post-property" element={<PostProperty />} />
+        <ProtectedRoutes allowedRoles={["agency", "dealer"]}>
+          {" "}
+          <Route path="post-property" element={<PostProperty />} />{" "}
+        </ProtectedRoutes>
+
         <Route path="/auth/login" element={<LoginPage />} />
         {/* auth-routes */}
 
@@ -47,16 +55,27 @@ export const router = createBrowserRouter(
 
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="user-profile" element={<UserProfile />}>
-        {/* User-Nested-Routes */}
-      </Route>
+      <ProtectedRoutes allowedRoles={["user", "agency", "dealer"]}>
+        {" "}
+        <Route path="user-profile" element={<UserProfile />}>
+          {/* User-Nested-Routes */}
+        </Route>
+      </ProtectedRoutes>
+
       {/* Dashboard-Section */}
-      <Route path="agent-dashboard" element={<AgencyDashboard />}>
-        {/* Agent-Nested-Routes */}
-      </Route>
-      <Route path="dealer-dashboard" element={<DealersDashboard />}>
-        {/* Dealer-Nested-Routes */}
-      </Route>
+      <ProtectedRoutes allowedRoles={["agency"]}>
+        {" "}
+        <Route path="agent-dashboard" element={<AgencyDashboard />}>
+          {/* Agent-Nested-Routes */}
+        </Route>
+      </ProtectedRoutes>
+      <ProtectedRoutes allowedRoles={["dealer"]}>
+        {" "}
+        <Route path="dealer-dashboard" element={<DealersDashboard />}>
+          {/* Dealer-Nested-Routes */}
+        </Route>
+      </ProtectedRoutes>
+
       <Route path="*" element={<NotFound />} />
     </>
   )
