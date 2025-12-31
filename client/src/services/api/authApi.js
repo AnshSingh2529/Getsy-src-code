@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { logout, setCredentials } from "../../features/auth/authSlice";
+import { logout, setCredentials } from "../../store/auth/authSlice";
 import { isTokenExpiringSoon } from "../../utils/jwt";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
