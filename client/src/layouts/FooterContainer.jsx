@@ -1,6 +1,6 @@
 // Layout/FooterContainer.jsx
 import { motion } from "framer-motion";
-import { Footer } from "../components/Footer.jsx";
+import { Footer } from "../components/footer/Footer.jsx";
 
 const FooterContainer = () => {
   return (

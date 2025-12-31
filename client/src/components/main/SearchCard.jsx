@@ -1,48 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Filter, Home, DollarSign, Star } from "lucide-react";
-import AutoExpandingTextarea from "../../utils/AutoExpandingTextArea.jsx";
-import { TbUpload } from "react-icons/tb";
-import TenantRequestModal from "../../../features/tenants/TenantRequestForm.jsx";
-import {
-  // Green
-  modernGreen,
-  glassGreen,
-  // Blue
-  oceanBlue,
-  deepBlue,
-  skyBlueGlass,
-  // Purple
-  royalPurple,
-  violetGlass,
-  // Orange/Amber
-  sunsetOrange,
-  warmAmber,
-  // Pink/Rose
-  rosePink,
-  magentaGlass,
-  // Teal/Cyan
-  tealGradient,
-  cyanPro,
-  // Indigo
-  deepIndigo,
-  indigoGlass,
-  // Red
-  crimsonRed,
-  rubyPro,
-  // Slate/Neutral
-  darkSlate,
-  steelGray,
-  charcoal,
-  // Multi-color
-  rainbow,
-  sunsetMix,
-  oceanBreeze,
-  mintFresh,
-  berryBlast,
-} from "../../utils/EnhanceButtons.js";
-import { useLocation } from "react-router-dom";
-import SearchBar from "../cards/others/SearchBar.jsx";
+// local imports...
+import SearchBar from "../../components/header/SearchBar.jsx";
 import PropertyModeSelector from "./PropertyModeSelector.jsx";
 
 const SearchCard = () => {

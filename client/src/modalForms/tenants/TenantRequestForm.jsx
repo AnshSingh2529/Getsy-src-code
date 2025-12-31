@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   MapPin,
   X,
@@ -16,7 +17,7 @@ import {
   MapPinCheckIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import CustomSelect from "../../components/cards/postProperty/CustomSelect.jsx";
+import CustomSelect from "../../pages/postProperty/components/CustomSelect.jsx";
 import {
   charcoal,
   deepBlue,
@@ -26,9 +27,8 @@ import {
   skyBlueGlass,
   steelGray,
 } from "../../utils/EnhanceButtons.js";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentRequest } from "../tenants/tenantSlice.js";
-import BroadcastModal from "../broadcastingSearch/BroadcastModal.jsx";
+import { setCurrentRequest } from "../../store/tenant/tenantSlice.js";
+import BroadcastModal from "../../modalForms/broadcastingSearch/BroadcastModal.jsx";
 
 /*
   TenantRequestFormEnhanced.jsx
@@ -88,7 +88,6 @@ const TenantRequestForm = ({ isOpen, onClose, onSubmit }) => {
   const dispatch = useDispatch();
   const authUser = useSelector((s) => s.auth?.user);
   const tenantId = authUser?.id || "mock-tenant-id";
-
 
   // Category state
   const categories = ["Residential", "Commercial", "Plot-Land"];
@@ -307,7 +306,9 @@ const TenantRequestForm = ({ isOpen, onClose, onSubmit }) => {
                   key={c}
                   onClick={() => setCategory(c)}
                   className={`${
-                    category === c ? glassGreen : "text-gray-300/80 py-3 px-4 w-full"
+                    category === c
+                      ? glassGreen
+                      : "text-gray-300/80 py-3 px-4 w-full"
                   }`}
                   aria-pressed={category === c}
                 >

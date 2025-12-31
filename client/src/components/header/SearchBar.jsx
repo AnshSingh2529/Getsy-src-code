@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPinHouse, Search } from "lucide-react";
-import TenantRequestModal from "../../../features/tenants/TenantRequestForm.jsx";
-import AutoExpandingTextarea from "./AutoExpandingTextArea";
-import { skyBlueGlass } from "../../../utils/EnhanceButtons.js";
+// local imports...
+import TenantRequestForm from "../../modalForms/tenants/TenantRequestForm.jsx";
+import AutoExpandingTextarea from "../../utils/AutoExpandingTextArea.jsx";
+import { skyBlueGlass } from "../../utils/EnhanceButtons.js";
 
 const SearchBar = ({
   onSearch,
@@ -79,7 +80,7 @@ const SearchBar = ({
         </motion.button>
       )}
 
-      <TenantRequestModal
+      <TenantRequestForm
         isOpen={open}
         onClose={() => setOpen(false)}
         location={location}

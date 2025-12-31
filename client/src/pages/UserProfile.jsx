@@ -25,10 +25,10 @@ import {
   Home,
   Menu,
 } from "lucide-react";
-import { logout as logoutAction } from "../features/auth/authSlice";
-import { authApi, useLogoutMutation } from "../api/api/authApi.js";
+import { logout as logoutAction } from "../store/auth/authSlice.js";
+import { authApi, useLogoutMutation } from "../services/api/authApi.js";
 import store from "../store/store.js";
-import { useAuth } from "../features/auth/hooks.js";
+import { useAuth } from "../hooks/useAuth.jsx";
 
 const UserProfile = () => {
   const [activeSection, setActiveSection] = useState("profile");
@@ -43,7 +43,7 @@ const UserProfile = () => {
     role: user?.role,
     avatar: user?.username[0],
     verified: user?.isAuthenticated,
-    status: !user?.username ? "not_active" : "active"
+    status: !user?.username ? "not_active" : "active",
   };
 
   useEffect(() => {

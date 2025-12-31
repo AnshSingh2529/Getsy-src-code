@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useFetchJwtQuery } from "../api/api/authApi.js";
-import { setCredentials } from "../features/auth/authSlice.js";
+import { useFetchJwtQuery } from "../api/authApi.js";
+import { setCredentials } from "../../store/auth/authSlice.js";
 
 const AuthGate = ({ children }) => {
   const dispatch = useDispatch();

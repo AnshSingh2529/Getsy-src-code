@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import SearchCard from "../components/cards/others/SearchCard.jsx";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import textImage from "../assets/images/getsy-banner.svg";
-import { useAuth } from "../features/auth/hooks.js";
+import SearchCard from "../components/main/SearchCard.jsx";
+import { useAuth } from "../hooks/useAuth.jsx";
 import {
   Bookmark,
   Bell,
@@ -19,7 +19,6 @@ import {
   Building2,
   Briefcase,
 } from "lucide-react";
-
 
 const HomePage = ({ properties }) => {
   const navigate = useNavigate();
@@ -50,8 +49,8 @@ const HomePage = ({ properties }) => {
       transition: { duration: 0.4 },
     },
   };
-   const onlyUser = ["user"]
-   const canBecomeAgencyDealer = onlyUser.includes(user?.role)
+  const onlyUser = ["user"];
+  const canBecomeAgencyDealer = onlyUser.includes(user?.role);
   return (
     <div className="h-full w-full bg-[#131515] overflow-y-auto m-0 p-4">
       {/* Desktop Layout - Two Column Split Screen */}
@@ -82,7 +81,7 @@ const HomePage = ({ properties }) => {
               className="space-y-3"
             >
               {/* Register your Agency or Become a Dealer Buttons */}
-              {(canBecomeAgencyDealer | !user) && (
+              {canBecomeAgencyDealer | !user && (
                 <div className="flex flex-wrap gap-3">
                   {/* Register Agency Button */}
                   <button className="group relative px-6 py-4 bg-gradient-to-r from-green-800  text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700">
@@ -351,68 +350,68 @@ const HomePage = ({ properties }) => {
               alt="Getsy Banner"
             />
           </motion.div>
-                        {/* Register your Agency or Become a Dealer Buttons */}
-              {(canBecomeAgencyDealer | !user) && (
-                <div className="flex flex-wrap gap-3 mt-8">
-                  {/* Register Agency Button */}
-                  <button className="group relative px-4 py-2 bg-gradient-to-r from-green-800  text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-900  opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative flex items-center gap-3">
-                      <Building2 className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                      <span>Register Your Agency</span>
-                      <svg
-                        className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                  </button>
-
-                  {/* Become a Dealer Button */}
-                  <button className="group relative px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-700">
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute inset-0 opacity-10">
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage:
-                            "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px)",
-                        }}
-                      ></div>
-                    </div>
-                    <div className="relative flex items-center gap-3">
-                      <Briefcase className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                      <span>Become a Dealer</span>
-                      <svg
-                        className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute top-0 left-0 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-                  </button>
+          {/* Register your Agency or Become a Dealer Buttons */}
+          {canBecomeAgencyDealer | !user && (
+            <div className="flex flex-wrap gap-3 mt-8">
+              {/* Register Agency Button */}
+              <button className="group relative px-4 py-2 bg-gradient-to-r from-green-800  text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-900  opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative flex items-center gap-3">
+                  <Building2 className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  <span>Register Your Agency</span>
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
                 </div>
-              )}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+              </button>
+
+              {/* Become a Dealer Button */}
+              <button className="group relative px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-700">
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 opacity-10">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px)",
+                    }}
+                  ></div>
+                </div>
+                <div className="relative flex items-center gap-3">
+                  <Briefcase className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                  <span>Become a Dealer</span>
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+                <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute top-0 left-0 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+                </div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+              </button>
+            </div>
+          )}
         </div>
         {/* Mobile Search Section */}
         <div className="p-4 sm:p-6 space-y-4">

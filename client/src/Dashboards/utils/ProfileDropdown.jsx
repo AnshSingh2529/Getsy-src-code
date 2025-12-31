@@ -3,7 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Settings, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../features/auth/hooks";
+
+import { useAuth } from "../../hooks/useAuth.jsx";
 // you already use this
 
 // Drop-in ProfileDropdown component
@@ -39,7 +40,7 @@ function ProfileDropdown({ user, colors = {} }) {
 
   // Logout - try hook first, fallback to localStorage + redirect
   const handleLogout = () => {
-   navigate("/")
+    navigate("/");
   };
 
   const displayName = user?.name ? capitalizeName(user.name) : "User";
@@ -84,7 +85,9 @@ function ProfileDropdown({ user, colors = {} }) {
           </div>
         </div>
         <ChevronDown
-          className={`ml-1 w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`ml-1 w-4 h-4 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
           style={{ color: colors.textSecondary ?? "#6b7280" }}
         />
       </button>

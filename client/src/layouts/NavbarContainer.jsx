@@ -1,6 +1,6 @@
 // Layout/NavbarContainer.jsx
 import { motion } from "framer-motion";
-import { Navbar } from "../components/Navbar.jsx";
+import { Navbar } from "../components/header/Navbar.jsx";
 
 const NavbarContainer = ({ navbarHeight, scrollY, toggleDrawer }) => {
   return (

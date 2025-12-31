@@ -2,18 +2,16 @@ import { useState } from "react";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { FaImage } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import RentPriceAndCharges from "../components/cards/postProperty/RentPriceAndCharges.jsx";
-import RentAdditionalDetails from "../components/cards/postProperty/RentAdditionalDetails.jsx";
-import CustomSelect from "../components/cards/postProperty/CustomSelect.jsx";
+import RentPriceAndCharges from "../../pages/postProperty/components/RentPriceAndCharges.jsx";
+import RentAdditionalDetails from "../../pages/postProperty/components/RentAdditionalDetails.jsx";
+import CustomSelect from "../../pages/postProperty/components/CustomSelect.jsx";
 import { colors } from "../../utils/Colors.js";
 
 const PostProperty = () => {
   const [selectedUnitType, setSelectedUnitType] = useState(""); // Start with empty string
   const [unitName, setUnitName] = useState("");
 
-  const unitType = [
-    { value: "for-rent", label: "For Rent" },
-  ];
+  const unitType = [{ value: "for-rent", label: "For Rent" }];
   const PriceAndChargesComponent = ({ type }) => {
     if (type === "for-rent") return <RentPriceAndCharges />;
     return null;

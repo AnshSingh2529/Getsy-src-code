@@ -17,7 +17,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { useAuth } from "../../features/auth/hooks";
+import { useAuth } from "../../hooks/useAuth.jsx";
 import { ProfileDropdown } from "../utils/ProfileDropdown";
 
 function AgencyDashboard() {
@@ -169,9 +169,7 @@ function AgencyDashboard() {
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg bg-green-800/50"
-              >
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg bg-green-800/50">
                 <Lock className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -336,7 +334,6 @@ function AgencyDashboard() {
               </p>
             </div>
           </div>
-
         </div>
 
         {/* Navigation */}

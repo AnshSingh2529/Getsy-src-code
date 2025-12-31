@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Heart, User, PlusCircle, LucideHousePlug } from "lucide-react";
-import { useAuth } from "../features/auth/hooks.js";
 import { createPortal } from "react-dom";
+
+import { useAuth } from "../../hooks/useAuth.jsx";
 import { getBottomNavItems } from "../../utils/BottomNavs.js";
-import SearchBar from "../cards/others/SearchBar.jsx";
+import SearchBar from "../../components/header/SearchBar.jsx";
 
 function BottomNavPortal({ children }) {
   if (typeof document === "undefined") return null;
@@ -237,9 +238,7 @@ function Navbar({ toggleDrawer }) {
               onClick={() => navigate("/wishlist")}
               className="cursor-pointer p-1 sm:p-2 transition-colors duration-300 font-mono"
             >
-              <Heart
-                className={`size-4 sm:size-5  ${theme.heartColor}`}
-              />
+              <Heart className={`size-4 sm:size-5  ${theme.heartColor}`} />
             </motion.div>
 
             {/* Divider - Hidden on mobile */}
