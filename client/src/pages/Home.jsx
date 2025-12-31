@@ -82,7 +82,7 @@ const HomePage = ({ properties }) => {
               className="space-y-3"
             >
               {/* Register your Agency or Become a Dealer Buttons */}
-              {canBecomeAgencyDealer && (
+              {(canBecomeAgencyDealer | !user) && (
                 <div className="flex flex-wrap gap-3">
                   {/* Register Agency Button */}
                   <button className="group relative px-6 py-4 bg-gradient-to-r from-green-800  text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700">
@@ -352,7 +352,7 @@ const HomePage = ({ properties }) => {
             />
           </motion.div>
                         {/* Register your Agency or Become a Dealer Buttons */}
-              {canBecomeAgencyDealer && (
+              {(canBecomeAgencyDealer | !user) && (
                 <div className="flex flex-wrap gap-3 mt-8">
                   {/* Register Agency Button */}
                   <button className="group relative px-4 py-2 bg-gradient-to-r from-green-800  text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700">
