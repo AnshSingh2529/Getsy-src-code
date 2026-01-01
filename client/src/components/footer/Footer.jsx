@@ -1,16 +1,15 @@
 import SocialMediaCards from "./SocialMediaCards.jsx";
-import { colors } from "../../utils/Colors.js";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
   Home,
   Building2,
   Users,
   Shield,
   FileText,
   HelpCircle,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 
 const Footer = () => {
@@ -42,7 +41,6 @@ const Footer = () => {
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-6">
@@ -51,14 +49,15 @@ const Footer = () => {
                 Getsy
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                Finding homes in cities with ease. Your trusted partner in discovering the perfect property for your next chapter.
+                Finding homes in cities with ease. Your trusted partner in
+                discovering the perfect property for your next chapter.
               </p>
             </div>
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <a 
-                href="mailto:info@getsy.com" 
+              <a
+                href="mailto:info@getsy.com"
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-blue-400 transition-colors group"
               >
                 <div className="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
@@ -66,8 +65,8 @@ const Footer = () => {
                 </div>
                 <span>info@getsy.com</span>
               </a>
-              <a 
-                href="tel:+911234567890" 
+              <a
+                href="tel:+911234567890"
                 className="flex items-center gap-3 text-sm text-gray-400 hover:text-blue-400 transition-colors group"
               >
                 <div className="w-8 h-8 rounded-lg bg-gray-800/50 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors">
@@ -152,7 +151,8 @@ const Footer = () => {
               Stay Updated
             </h4>
             <p className="text-gray-400 text-sm mb-6">
-              Subscribe to our newsletter for the latest property listings and market insights.
+              Subscribe to our newsletter for the latest property listings and
+              market insights.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <input
@@ -174,10 +174,10 @@ const Footer = () => {
       <div className="border-t border-gray-800 bg-[#0a0b0b]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            
             {/* Copyright */}
             <p className="text-xs text-gray-500 text-center md:text-left">
-              &copy; {currentYear} Getsy. All rights reserved. Made with care in India.
+              &copy; {currentYear} Getsy. All rights reserved. Made with care in
+              India.
             </p>
 
             {/* Social Media */}
@@ -190,11 +190,17 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className="flex items-center gap-4 text-xs text-gray-500">
-              <a href="/sitemap" className="hover:text-blue-400 transition-colors">
+              <a
+                href="/sitemap"
+                className="hover:text-blue-400 transition-colors"
+              >
                 Sitemap
               </a>
               <span className="text-gray-700">|</span>
-              <a href="/accessibility" className="hover:text-blue-400 transition-colors">
+              <a
+                href="/accessibility"
+                className="hover:text-blue-400 transition-colors"
+              >
                 Accessibility
               </a>
             </div>
