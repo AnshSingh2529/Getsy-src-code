@@ -75,25 +75,28 @@ const Layout = () => {
             maxWidth: isMobile ? "calc(100vw - 32px)" : "400px",
           },
           success: {
-            style: { background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)" },
+            style: {
+              background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+            },
             iconTheme: { primary: "#fff", secondary: "#11998e" },
           },
           error: {
-            style: { background: "linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)" },
+            style: {
+              background: "linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)",
+            },
             iconTheme: { primary: "#fff", secondary: "#ff6b6b" },
           },
           loading: {
-            style: { background: "linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)" },
+            style: {
+              background: "linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)",
+            },
           },
         }}
       />
 
       {/* Navbar */}
       {!isNavbarExcluded && (
-        <NavbarContainer
-          navbarHeight={navbarHeight}
-          scrollY={scrollY}
-        />
+        <NavbarContainer navbarHeight={navbarHeight} scrollY={scrollY} />
       )}
 
       {/* Main Content */}
@@ -126,10 +129,6 @@ const Layout = () => {
       {/* Footer */}
       {!isFooterExcluded && <FooterContainer />}
 
-      {/* Loading overlay preserved */}
-      {/* Keep original logic for location.state?.isLoading */}
-      {/* This remains in Layout to be globally visible */}
-      {/* You can optionally move to a separate component later */}
       {location.state?.isLoading && (
         <div className="fixed inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-[100]">
           <div className="flex flex-col items-center space-y-4">

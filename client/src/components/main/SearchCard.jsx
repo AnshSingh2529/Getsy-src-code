@@ -5,10 +5,10 @@ import { Filter, Home, DollarSign, Star } from "lucide-react";
 import SearchBar from "../../components/header/SearchBar.jsx";
 import PropertyModeSelector from "./PropertyModeSelector.jsx";
 
-const SearchCard = () => {
+const SearchCard = ({ onFiltersChange, currentFilters }) => {
   const [searchLocation, setSearchLocation] = useState("");
   const [pincode, setPincode] = useState("");
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(true);
   const [propertyType, setPropertyType] = useState("all");
   const [priceRange, setPriceRange] = useState([0, 100000]);
   const [bedrooms, setBedrooms] = useState("any");
@@ -73,7 +73,7 @@ const SearchCard = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="flex flex-col h-full w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 overflow-hidden   xl:mb-20"
+      className="flex flex-col h-auto w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 overflow-hidden xl:mb-20 overflow-y-auto scrollbar-hide"
     >
       {/* Header Section with Banner */}
 
