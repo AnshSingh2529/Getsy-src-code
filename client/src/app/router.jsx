@@ -6,7 +6,7 @@ import {
 // """""""""""""""
 // local imports
 // """""""""""""""
-import ProtectedRoutes from "../routes/ProtectedRoutes.js";
+import { ProtectedRoutes } from "../routes/ProtectedRoutes.jsx";
 // import from layouts...
 import Layout from "../layouts/Layout.jsx";
 // import from pages...
@@ -18,7 +18,8 @@ import CommonView from "../pages/propertyPages/CommonView.jsx";
 import ForCouples from "../pages/propertyPages/ThroughAgents/ForCouples.jsx";
 import ForFamilies from "../pages/propertyPages/ThroughAgents/ForFamilies.jsx";
 import UserProfile from "../pages/UserProfile.jsx";
-import NotFound from "../pages/NotFound.jsx";
+import  Getsy404Page  from "../pages/Getsy404Page.jsx";
+import DealersForBachelors from "../pages/propertyPages/ThroughDealers/DealersForBachelors.jsx";
 // import form dashboard...
 import AgencyDashboard from "../dashboards/Agents/AgencyDashboard.jsx";
 import DealersDashboard from "../dashboards/Dealers/DealersDashboard.jsx";
@@ -36,10 +37,12 @@ export const router = createBrowserRouter(
           path="top-dealer-agencies-list"
           element={<HireDealerAgenciesModal />}
         />
-        <ProtectedRoutes allowedRoles={["agency", "dealer"]}>
+        <Route
+          element={<ProtectedRoutes allowedRoles={["agency", "dealer"]} />}
+        >
           {" "}
           <Route path="post-property" element={<PostProperty />} />{" "}
-        </ProtectedRoutes>
+        </Route>
 
         <Route path="/auth/login" element={<LoginPage />} />
         {/* auth-routes */}
@@ -52,31 +55,35 @@ export const router = createBrowserRouter(
         />
         <Route path="property-view/for-couples" element={<ForCouples />} />
         <Route path="property-view/for-families" element={<ForFamilies />} />
-
-        <Route path="*" element={<NotFound />} />
       </Route>
-      <ProtectedRoutes allowedRoles={["user", "agency", "dealer"]}>
-        {" "}
-        <Route path="user-profile" element={<UserProfile />}>
-          {/* User-Nested-Routes */}
+      <Route>
+        <Route
+          element={
+            <ProtectedRoutes allowedRoles={["user", "agency", "dealer"]} />
+          }
+        >
+          {" "}
+          <Route path="user-profile" element={<UserProfile />}>
+            {/* User-Nested-Routes */}
+          </Route>
         </Route>
-      </ProtectedRoutes>
 
-      {/* Dashboard-Section */}
-      <ProtectedRoutes allowedRoles={["agency"]}>
-        {" "}
-        <Route path="agent-dashboard" element={<AgencyDashboard />}>
-          {/* Agent-Nested-Routes */}
+        {/* Dashboard-Section */}
+        <Route element={<ProtectedRoutes allowedRoles={["agency"]} />}>
+          {" "}
+          <Route path="agent-dashboard" element={<AgencyDashboard />}>
+            {/* Agent-Nested-Routes */}
+          </Route>
         </Route>
-      </ProtectedRoutes>
-      <ProtectedRoutes allowedRoles={["dealer"]}>
-        {" "}
-        <Route path="dealer-dashboard" element={<DealersDashboard />}>
-          {/* Dealer-Nested-Routes */}
+        <Route element={<ProtectedRoutes allowedRoles={["dealer"]} />}>
+          {" "}
+          <Route path="dealer-dashboard" element={<DealersDashboard />}>
+            {/* Dealer-Nested-Routes */}
+          </Route>
         </Route>
-      </ProtectedRoutes>
 
-      <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Getsy404Page />} />
+      </Route>
     </>
   )
 );
