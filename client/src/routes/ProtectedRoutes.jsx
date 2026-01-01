@@ -1,7 +1,8 @@
-import { useAuth } from "../hooks/useAuth";
-import CorruptedAuthState from "../pages/errors/CorruptedAuthState.jsx";
-import Unauthenticated from "../pages/errors/Unauthenticated.jsx";
-import Unauthorized from "../pages/errors/Unauthorized.jsx";
+import { Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth.jsx";
+import { CorruptedAuthState } from "../pages/errors/CorruptedAuthState.jsx";
+import { Unauthenticated } from "../pages/errors/Unauthenticated.jsx";
+import { Unauthorized } from "../pages/errors/Unauthorized.jsx";
 
 const ProtectedRoutes = ({ children, allowedRoles = [] }) => {
   const { isAuthenticated, user, isLoading, tokenValid } = useAuth();
@@ -20,7 +21,7 @@ const ProtectedRoutes = ({ children, allowedRoles = [] }) => {
     return <Unauthorized userRole={user?.role} requiredRoles={allowedRoles} />;
   }
 
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedRoutes;
