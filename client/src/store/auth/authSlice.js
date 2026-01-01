@@ -5,38 +5,34 @@ import {
   saveAuthToStorage,
 } from "../../utils/localStorage.js";
 
-const persisted = loadAuthFromStorage();
-
 export const bootstrapAuth = createAsyncThunk("auth/bootstrap", async () => {
-  await new Promise((r) => setTimeout(r, 800));
-
-  const user = persisted.getItem("user");
-  const token = persisted.getItem("access", "refresh");
-
-  if (!user || !token) {
-    return { isAuthenticated: false };
+  await new Promise((r) => setTimeout(r, 300));
+  const persisted = loadAuthFromStorage();
+  if (!persisted?.user || !persisted?.access) {
+    return {
+      isAuthenticated: false,
+      tokenValid: false,
+      user: null,
+    };
   }
-
-  const tokenValid = token === "valid-token";
-
   return {
-    isAuthenticated: tokenValid,
-    user: tokenValid ? user : null,
-    tokenValid,
+    isAuthenticated: true,
+    user: persisted.user,
+    tokenValid: true,
   };
 });
 
 const initialState = {
-  user: persisted?.user ?? null,
-  access: persisted?.access ?? null,
-  refresh: persisted?.refresh ?? null,
-  isAuthenticated: !!(persisted?.user && persisted?.access),
+  user: null,
+  access: null,
+  refresh: null,
+  isAuthenticated: false,
+  isLoading: true,
+  tokenValid: false,
   status: "idle",
   error: null,
   sessionExpiring: false,
   sessionExpired: false,
-  isLoading: true,
-  tokenValid: true,
 };
 
 export const authSlice = createSlice({
@@ -57,7 +53,7 @@ export const authSlice = createSlice({
         access,
         refresh,
         isAuthenticated: true,
-        tokenValid,
+        tokenValid: true,
       });
     },
     updateAccessToken(state, action) {
@@ -73,13 +69,7 @@ export const authSlice = createSlice({
       });
     },
     logout(state) {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.access = null;
-      state.refresh = null;
-      state.error = null;
-      state.tokenValid = true;
-
+      Object.assign(state, initialState);
       clearAuthFromStorage();
     },
     setError(state, action) {
@@ -96,20 +86,20 @@ export const authSlice = createSlice({
       state.refresh = null;
       state.user = null;
     },
-    extraReducers: (builder) => {
-      builder
-        .addCase(bootstrapAuth.pending, (state) => {
-          state.isLoading = true;
-        })
-        .addCase(bootstrapAuth.fulfilled, (state, action) => {
-          Object.assign(state, {
-            isAuthenticated: action.payload.isAuthenticated ?? false,
-            user: action.payload.user ?? null,
-            tokenValid: action.payload.tokenValid ?? true,
-            isLoading: false,
-          });
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(bootstrapAuth.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(bootstrapAuth.fulfilled, (state, action) => {
+        Object.assign(state, {
+          isAuthenticated: action.payload.isAuthenticated ?? false,
+          user: action.payload.user ?? null,
+          tokenValid: action.payload.tokenValid ?? false,
+          isLoading: false,
         });
-    },
+      });
   },
 });
 
