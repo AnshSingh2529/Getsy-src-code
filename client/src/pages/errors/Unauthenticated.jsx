@@ -1,4 +1,6 @@
-const Unauthenticated = ({ tokenValid }) => {
+import { LogIn } from "lucide-react";
+
+export const Unauthenticated = ({ tokenValid }) => {
   const { login } = useAuth();
 
   const handleQuickLogin = (role) => {

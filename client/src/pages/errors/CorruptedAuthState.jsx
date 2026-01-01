@@ -1,4 +1,4 @@
-const CorruptedAuthState = () => {
+export const CorruptedAuthState = () => {
   const { logout } = useAuth();
 
   const handleRefresh = () => {
