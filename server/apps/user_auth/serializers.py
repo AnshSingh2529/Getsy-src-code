@@ -46,10 +46,21 @@ class AgencySerializer(serializers.ModelSerializer):
         fields = [
             "name",
             "email",
+            "owner",
             "phone",
             "rera_cert_number",
             "addresses",
         ]
+        extra_kwargs = {"owner": {"read_only": True}}
+
+        def create(self, validated_data):
+            address_data = validated_data.pop("addresses")
+            owner = self.context["request"].user
+            return create_agency_with_role_address(
+                agency_data=validated_data,
+                address_data=address_data,
+                user=owner,
+            )
 
 
 class DealerWorkingArea(serializers.ModelSerializer):
@@ -68,6 +79,7 @@ class DealerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dealer
         fields = [
+            "dealer",
             "phone",
             "working_area",
         ]
@@ -77,15 +89,16 @@ class DealerSerializer(serializers.ModelSerializer):
             "is_active",
             "created_at",
         ]
+        extra_kwargs = {"dealer": {"read_only": True}}
 
     def create(self, validated_data):
         working_area_data = validated_data.pop("working_area")
-        user = self.context["request"].user
+        dealer = self.context["request"].user
 
         return create_dealer_with_working_area(
             dealer_data=validated_data,
             working_area_data=working_area_data,
-            user=user,
+            user=dealer,
         )
 
 
