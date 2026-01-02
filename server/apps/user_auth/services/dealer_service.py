@@ -25,14 +25,14 @@ def _generate_dlr_id():
 
 
 @transaction.atomic
-def create_dealer_with_working_area(*, dealer_data, working_area_data, user):
+def create_dealer_with_working_area(*, dealer_data, working_area_data, user: User):
     """
     Single source of truth for Dealer creation
     """
     if user.role != User.RoleChoices.USER:
         raise ValueError("User already has an assigned role")
     dealer = Dealer(
-        user=user,
+        dealer=user,
         **dealer_data,
     )
     dealer.dlr_id = _generate_dlr_id()
