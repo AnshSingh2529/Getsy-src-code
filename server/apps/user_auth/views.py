@@ -120,14 +120,7 @@ class AgencyDashboardView(APIView):
         )
 
 
-class AgencyViewSet(
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet,
-):
+class AgencyViewSet(viewsets.ModelViewSet):
     serializer_class = AgencySerializer
     queryset = Agency.objects.prefetch_related("addresses")
 
@@ -159,28 +152,10 @@ class AgencyViewSet(
         return qs.filter(owner=user)
 
     def perform_create(self, serializer):
-        user = self.request.user
-
-        validated_data = serializer.validated_data
-        address_data = validated_data.pop("addresses")
-
-        agency = create_agency_with_role_address(
-            agency_data=validated_data,
-            address_data=address_data,
-            user=user,
-        )
-
-        serializer.instance = agency
+        serializer.save(owner=self.request.user)
 
 
-class DealerViewSet(
-    mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet,
-):
+class DealerViewSet(viewsets.ModelViewSet):
     serializer_class = DealerSerializer
     queryset = Dealer.objects.prefetch_related("working_area")
 
@@ -211,12 +186,7 @@ class DealerViewSet(
         return qs
 
     def perform_create(self, serializer):
-        user = self.request.user
-        create_dealer_with_working_area(
-            agency_data=serializer.validated_data["agency"],
-            address_data=serializer.validated_data["addresses"],
-            user=user,
-        )
+        serializer.save(dealer=self.request.user)
 
 
 # class AgencyDealerConnectionViewSet(viewsets.GenericViewSet):
