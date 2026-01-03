@@ -200,7 +200,7 @@ function Navbar({ toggleDrawer }) {
             </NavLink>
 
             {/* Desktop CTA Button */}
-            {canPostProperty && (
+            {(canPostProperty || !user) && (
               <div className="relative px-8 py-2">
                 <motion.button
                   whileTap={{ scale: 0.92 }}
@@ -220,8 +220,16 @@ function Navbar({ toggleDrawer }) {
 
           {/* Right Section */}
           <div className="flex items-center space-x-2 sm:space-x-3">
+            {/* Wishlist Icon - Now visible on mobile */}
+            <motion.div
+              whileTap={{ scale: 0.92 }}
+              onClick={() => navigate("/wishlist")}
+              className="cursor-pointer p-1 sm:p-2 transition-colors duration-300 font-mono"
+            >
+              <Heart className={`size-4 sm:size-5  ${theme.heartColor}`} />
+            </motion.div>
             {/* Post Property Button - Mobile only */}
-            {canPostProperty && (
+            {(canPostProperty || !user) && (
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={handlePostProperty}
@@ -232,18 +240,9 @@ function Navbar({ toggleDrawer }) {
               </motion.button>
             )}
 
-            {/* Wishlist Icon - Now visible on mobile */}
-            <motion.div
-              whileTap={{ scale: 0.92 }}
-              onClick={() => navigate("/wishlist")}
-              className="cursor-pointer p-1 sm:p-2 transition-colors duration-300 font-mono"
-            >
-              <Heart className={`size-4 sm:size-5  ${theme.heartColor}`} />
-            </motion.div>
-
             {/* Divider - Hidden on mobile */}
             <div
-              className={`hidden lg:block w-[1px] h-[40px] transition-colors duration-300 ${theme.dividerColor}`}
+              className={`lg:block w-[1px] h-[40px] transition-colors duration-300 ${theme.dividerColor}`}
             ></div>
 
             {/* Desktop Login Button - Hidden on smaller screens */}
