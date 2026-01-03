@@ -8,6 +8,7 @@ import MobileBanner from "../components/main/ui/MobileBanner.jsx";
 
 import QuickActions from "../components/main/QuickActions.jsx";
 import AnimatedCard from "../components/main/ui/AnimatedCard.jsx";
+import PropertyDiscovery from "../components/main/PropertDiscovery.jsx";
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -39,11 +40,15 @@ const HomePage = () => {
       <div className="lg:hidden inline-block h-screen space-y-3 p-0">
         <MobileBanner showCTA={canBecomeAgencyDealer} />
         <div className="space-y-5">
+          {/* Custome Searching card */}
           <SearchCard />
+          {/* Quick Checking on new listings and many more... */}
           <AnimatedCard>
             {" "}
             <QuickActions />
           </AnimatedCard>
+          {/* Quick Mode Selection */}
+          <PropertyDiscovery />
         </div>
       </div>
       {/* Success Notification */}{" "}
