@@ -20,7 +20,8 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.email} ({self.role})"
 
-
+class AgencyProfile(models.Model):
+    pass
 class Agency(models.Model):
     name = models.CharField(max_length=255, blank=False, null=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="agency")
