@@ -8,6 +8,7 @@ import PageTransition from "./PageTransitions.jsx";
 
 import useResponsive from "./UseResponsive.jsx";
 import useScroll from "./UseScroll.jsx";
+import SearchNearbyCTA from "../components/main/cta/SearchNearbyCTA.jsx";
 
 const Layout = () => {
   const location = useLocation();
@@ -107,6 +108,7 @@ const Layout = () => {
           minHeight: `calc(100vh - ${!isFooterExcluded ? 200 : 0}px)`,
         }}
       >
+       
         <div
           className={`w-full ${
             isDashboardRoute

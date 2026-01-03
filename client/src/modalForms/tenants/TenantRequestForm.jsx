@@ -30,20 +30,6 @@ import {
 import { setCurrentRequest } from "../../store/tenant/tenantSlice.js";
 import BroadcastModal from "../../modalForms/broadcastingSearch/BroadcastModal.jsx";
 
-/*
-  TenantRequestFormEnhanced.jsx
-  - Single-file enhanced tenant/property search & broadcast form
-  - Features:
-    * Top-level toggle: Buy / Rent
-    * Sub-categories: Residential / Commercial / Plot-Land
-    * Property-type selector (dynamic based on sub-category)
-    * Rich filter set (price, area, bhk, bathrooms, furnishing, amenities, etc.)
-    * Smooth animations with framer-motion
-    * Larger responsive modal to house many options
-    * Accessible controls and keyboard-friendly interactions
-    * Re-uses existing CustomSelect and BroadcastModal
-*/
-
 const DEFAULT_ANIM = { type: "spring", stiffness: 300, damping: 30 };
 
 const TenantRequestForm = ({ isOpen, onClose, onSubmit }) => {

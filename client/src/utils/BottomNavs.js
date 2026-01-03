@@ -1,5 +1,6 @@
 import {
   Briefcase,
+  HouseIcon,
   LucideMapPinHouse,
   PercentDiamond,
   User,
@@ -10,12 +11,12 @@ function getBottomNavItems(user, toggleProfile) {
   const common = [
     {
       path: "/",
-      icon: LucideMapPinHouse,
-      label: "Search",
+      icon: HouseIcon,
+      label: "Home",
       exact: true,
     },
     {
-      path: "/g-prime",
+      path: "/getsy-prime",
       icon: PercentDiamond,
       label: "GPrime",
       exact: false,
@@ -34,7 +35,7 @@ function getBottomNavItems(user, toggleProfile) {
     return [
       ...common,
       {
-        path: "/hire-agents",
+        path: "/top-dealer-agencies-list",
         icon: Briefcase,
         label: "Hire Agent",
         exact: false,

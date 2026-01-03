@@ -1,42 +1,18 @@
 // src/components/common/SearchBar.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPinHouse, Search } from "lucide-react";
+import { Search } from "lucide-react";
+
 // local imports...
-import TenantRequestForm from "../../modalForms/tenants/TenantRequestForm.jsx";
 import AutoExpandingTextarea from "../../utils/AutoExpandingTextArea.jsx";
-import { skyBlueGlass } from "../../utils/EnhanceButtons.js";
+import SearchNearbyCTA from "../main/cta/SearchNearbyCTA.jsx";
 
 const SearchBar = ({
   onSearch,
   placeholder = "Search properties, areas or budgets...",
-  variant = "default", // "default" | "compact"
-  showNearby = true,
+  variant = "default", // "default" | "compact",
 }) => {
-  const [open, setOpen] = useState(false);
-  const [location, setLocation] = useState(null);
   const [searchText, setSearchText] = useState("");
-
-  const handleCurrentLocationSearch = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-          setOpen(true);
-        },
-        (error) => {
-          console.error("Error fetching location:", error);
-          alert("Unable to retrieve your location.");
-          setOpen(false);
-        }
-      );
-    } else {
-      alert("Geolocation not supported by your browser.");
-    }
-  };
 
   const handleSearch = () => {
     if (onSearch) onSearch(searchText);
@@ -49,49 +25,21 @@ const SearchBar = ({
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25 }}
-      className={`md:flex items-center justify-center gap-2 ${
-        compact ? "p-0" : "p-2"
-      }`}
+      className={`w-full flex lg:space-x-2 items-center justify-center`}
     >
-      {showNearby && (
-        <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={handleCurrentLocationSearch}
-          className={`flex items-center gap-2 ${
-            compact
-              ? "px-3 py-1.5 text-sm bg-gray-700/60 rounded-full border border-gray-600 hover:border-gray-400 transition"
-              : skyBlueGlass
-          }`}
-        >
-          {compact && (
-            <div className="flex justify-between items-center space-x-2">
-              {" "}
-              <MapPinHouse size={compact ? 18 : 22} color="limegreen" />{" "}
-              <span className="font-medium text-gray-300">Nearby</span>
-            </div>
-          )}
-
-          {!compact && (
-            <span className="text-gray-300 font-medium truncate">
-              Search Nearby
-            </span>
-          )}
-        </motion.button>
-      )}
-
-      <TenantRequestForm
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        location={location}
-      />
+      <div className="hidden lg:flex">
+        <SearchNearbyCTA showNearby={true} variant="default" />
+      </div>
 
       {/* Search box */}
       <div
-        className={`flex items-center ${
-          compact ? "px-2 py-1" : "pl-3 pr-1 py-1.5"
-        } bg-gray-800/60 backdrop-blur-sm rounded-full border border-gray-600 hover:border-gray-500 transition-all duration-300 w-full`}
+        className={`flex w-full box-content items-center justify-center ${
+          compact ? "px-2 py-1" : "pl-1 pr-1 py-1.5"
+        } bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-600 hover:border-gray-500 transition-all duration-300 w-full space-x-4 `}
       >
+        <div className="flex lg:hidden">
+          <SearchNearbyCTA showNearby={true} variant="compact" />
+        </div>
         <AutoExpandingTextarea
           placeholder={placeholder}
           value={searchText}

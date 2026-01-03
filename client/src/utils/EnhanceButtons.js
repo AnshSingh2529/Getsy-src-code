@@ -16,7 +16,7 @@ const oceanBlue = "md:flex flex w-full space-x-2 text-sm justify-center items-ce
 const deepBlue = "md:flex flex space-x-2 w-full text-sm font-normal font-sans justify-center items-center bg-gradient-to-br from-blue-700 to-blue-900 hover:from-blue-600 hover:to-blue-800 text-gray-100 rounded-md py-2 px-4 shadow-lg hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 mb-2 md:m-0 ring-1 ring-blue-500/40 hover:ring-blue-400/60 transform hover:-translate-y-0.5";
 
 // 5. Sky Blue Glassmorphism
-const skyBlueGlass = "md:flex flex space-x-2 text-sm justify-between items-center bg-blue-600/30 hover:bg-blue-500/40 backdrop-blur-lg text-white rounded-2xl py-3 px-4 shadow-xl shadow-blue-900/20 hover:shadow-2xl hover:shadow-blue-400/30 border border-blue-400/40 hover:border-blue-300/60 transition-all duration-300 mb-2 md:m-0 transform hover:scale-[1.02]";
+const skyBlueGlass = "md:flex flex space-x-2 text-sm justify-between items-center bg-blue-600/30 hover:bg-blue-500/40 backdrop-blur-lg rounded-xl py-3 px-4 shadow-xl shadow-blue-900/20 hover:shadow-2xl hover:shadow-blue-400/30 border border-blue-400/40 hover:border-blue-300/60 transition-all duration-300 mb-2 md:m-0 transform hover:scale-[1.02]";
 
 // ===== PURPLE THEME =====
 // 6. Royal Purple Gradient ⭐

@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { getBottomNavItems } from "../../utils/BottomNavs.js";
 import SearchBar from "../../components/header/SearchBar.jsx";
+import SearchNearbyCTA from "../main/cta/SearchNearbyCTA.jsx";
 
 function BottomNavPortal({ children }) {
   if (typeof document === "undefined") return null;
@@ -228,6 +229,7 @@ function Navbar({ toggleDrawer }) {
             >
               <Heart className={`size-4 sm:size-5  ${theme.heartColor}`} />
             </motion.div>
+
             {/* Post Property Button - Mobile only */}
             {(canPostProperty || !user) && (
               <motion.button
@@ -336,6 +338,7 @@ function Navbar({ toggleDrawer }) {
               );
             })}
           </div>
+
         </motion.nav>
       </BottomNavPortal>
 

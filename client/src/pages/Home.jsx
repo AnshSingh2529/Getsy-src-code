@@ -18,28 +18,32 @@ const HomePage = () => {
   const canBecomeAgencyDealer = !user || user?.role === "user";
 
   return (
-    <div className="h-auto w-full bg-[#131515] p-4 mt-10 md:m-0">
+    <div className="h-auto w-full bg-[#131515] md:p-4 p-3 relative">
       {/* Desktop */}
-      <div className="hidden lg:flex lg:h-screen">
+      <div className="hidden lg:flex lg:h-screen mt-8">
         <DesktopBanner showCTA={canBecomeAgencyDealer} />
-        <div className="w-full lg:w-2/5 xl:w-1/2 h-auto overflow-y-scroll scrollbar-hide p-6 space-y-6">
+        <div className="lg:w-2/5 xl:w-1/2 md:space-y-3 space-y-6">
           <SearchCard
             onFiltersChange={setSearchFilters}
             currentFilters={searchFilters}
           />
+          <div className="p-4">
+            <AnimatedCard>
+              {" "}
+              <QuickActions />
+            </AnimatedCard>
+          </div>
         </div>
       </div>
-      <div className="box-content items-stretch">
-        <AnimatedCard>
-          {" "}
-          <QuickActions />
-        </AnimatedCard>
-      </div>
       {/* Mobile */}
-      <div className="lg:hidden">
+      <div className="lg:hidden inline-block h-screen space-y-3 p-0">
         <MobileBanner showCTA={canBecomeAgencyDealer} />
-        <div className="p-4">
-          <SearchCard compact />
+        <div className="space-y-5">
+          <SearchCard />
+          <AnimatedCard>
+            {" "}
+            <QuickActions />
+          </AnimatedCard>
         </div>
       </div>
       {/* Success Notification */}{" "}
