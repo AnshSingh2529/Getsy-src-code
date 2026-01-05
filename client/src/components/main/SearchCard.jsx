@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Filter, Home, DollarSign, Star } from "lucide-react";
 // local imports...
 import SearchBar from "../../components/header/SearchBar.jsx";
-import PropertyModeSelector from "./PropertyModeSelector.jsx";
 
 const SearchCard = ({ onFiltersChange, currentFilters }) => {
   const [searchLocation, setSearchLocation] = useState("");

@@ -1,17 +1,25 @@
-// Layout/PageTransition.jsx
 import { motion } from "framer-motion";
 
-const PageTransition = ({ children, keyProp, isFullHeightRoute, navbarHeight }) => {
+const PageTransition = ({
+  children,
+  keyProp,
+  isFullHeightRoute,
+  navbarHeight = 0,
+}) => {
   return (
     <motion.div
       key={keyProp}
-      initial={{ opacity: 0, y: 0 }}
-      animate={{ opacity: 1, y: 1 }}
-      exit={{ opacity: 0, y: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-      className={`w-full ${
-        isFullHeightRoute ? `min-h-[calc(100vh-${navbarHeight}px)]` : "min-h-[60vh]"
-      }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="w-full"
+      style={{
+        minHeight: isFullHeightRoute
+          ? `calc(100vh - ${navbarHeight}px)`
+          : "60vh",
+        paddingTop: navbarHeight,
+      }}
     >
       {children}
     </motion.div>

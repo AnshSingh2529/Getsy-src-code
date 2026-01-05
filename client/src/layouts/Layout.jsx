@@ -1,4 +1,3 @@
-// Layout/Layout.jsx
 import { Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
@@ -8,7 +7,7 @@ import PageTransition from "./PageTransitions.jsx";
 
 import useResponsive from "./UseResponsive.jsx";
 import useScroll from "./UseScroll.jsx";
-import SearchNearbyCTA from "../components/main/cta/SearchNearbyCTA.jsx";
+import ScrollToTop from "./ScrollTOTop.jsx";
 
 const Layout = () => {
   const location = useLocation();
@@ -36,12 +35,10 @@ const Layout = () => {
     location.pathname.startsWith(route)
   );
 
-  // Dashboard routes for different styling
   const isDashboardRoute = noFooterRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
 
-  // Special routes that need full height
   const fullHeightRoutes = ["/", "/property"];
   const isFullHeightRoute = fullHeightRoutes.some(
     (route) =>
@@ -49,7 +46,7 @@ const Layout = () => {
   );
 
   return (
-    <div className="min-h-screen select-none bg-surface-dark dark:bg-[#131515] transition-colors duration-300">
+    <div className="min-h-screen select-none bg-surface-dark dark:bg-[#131515] transition-colors duration-300 outline-none">
       {/* Toaster kept in Layout so it's globally available */}
       <Toaster
         position={isMobile ? "top-center" : "top-right"}
@@ -108,16 +105,16 @@ const Layout = () => {
           minHeight: `calc(100vh - ${!isFooterExcluded ? 200 : 0}px)`,
         }}
       >
-       
         <div
           className={`w-full ${
             isDashboardRoute
               ? ""
               : isFullHeightRoute
               ? ""
-              : "px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6 md:py-8"
+              : "px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16"
           }`}
         >
+          <ScrollToTop />
           <PageTransition
             keyProp={location.pathname}
             isFullHeightRoute={isFullHeightRoute}

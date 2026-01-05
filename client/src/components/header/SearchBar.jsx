@@ -25,7 +25,7 @@ const SearchBar = ({
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25 }}
-      className={`w-full flex lg:space-x-2 items-center justify-center`}
+      className={`w-full flex flex-1 lg:space-x-2 items-center justify-stretch box-content`}
     >
       <div className="hidden lg:flex">
         <SearchNearbyCTA showNearby={true} variant="default" />

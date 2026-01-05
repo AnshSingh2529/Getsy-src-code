@@ -37,7 +37,7 @@ function getBottomNavItems(user, toggleProfile) {
       {
         path: "/top-dealer-agencies-list",
         icon: Briefcase,
-        label: "Hire Agent",
+        label: "Hire",
         exact: false,
       },
     ];

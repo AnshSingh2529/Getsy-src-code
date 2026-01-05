@@ -6,7 +6,7 @@ import QuickActions from "../QuickActions";
 
 const DesktopBanner = ({ showCTA }) => {
   return (
-    <div className="flex-1 h-full flex justify-center bg-[#131515] overflow-y-auto">
+    <div className="flex items-center justify-center bg-[#131515] outline-none">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -25,16 +25,17 @@ const DesktopBanner = ({ showCTA }) => {
         {showCTA && <AgencyDealerCTA />}
 
         <p className="text-lg text-gray-600 max-w-md leading-loose">
-          Search for thousands of VERIFIED AGENTS in your area in just a{" "}
+          Search for thousands of VERIFIED AGENCIES & DEALER in your area in
+          just a{" "}
           <span className="bg-blue-400 text-white rounded-md p-1">
             few clicks
           </span>
         </p>
       </motion.div>
       <div className="lg:hidden">
-      <AnimatedCard>
-        <QuickActions />
-      </AnimatedCard>
+        <AnimatedCard>
+          <QuickActions />
+        </AnimatedCard>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ export default function AnimatedCard({ delay = 0, children }) {
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="bg-gray-800/50 rounded-xl p-4 border border-gray-700"
+      className="items-center bg-gray-800/50 rounded-xl lg:p-5 p-2 border border-gray-700"
     >
       {children}
     </motion.div>
