@@ -34,18 +34,19 @@ const SearchBar = ({
       {/* Search box */}
       <div
         className={`flex w-full box-content items-center justify-center ${
-          compact ? "px-2 py-1" : "pl-1 pr-1 py-1.5"
+          compact ? "px-2 py-0.5 truncate" : "pl-1 pr-1 py-1.5"
         } bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-600 hover:border-gray-500 transition-all duration-300 w-full space-x-4 `}
       >
         <div className="flex lg:hidden">
           <SearchNearbyCTA showNearby={true} variant="compact" />
         </div>
+
         <AutoExpandingTextarea
           placeholder={placeholder}
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className={`bg-transparent outline-none text-gray-200 resize-none ${
-            compact ? "text-sm" : "text-base"
+            compact ? "text-xs truncate" : "text-base"
           }`}
         />
 

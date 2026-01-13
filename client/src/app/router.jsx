@@ -12,7 +12,7 @@ import Layout from "../layouts/Layout.jsx";
 // import from pages...
 import Home from "../pages/Home.jsx";
 import PostProperty from "../pages/postProperty/PostProperty.jsx";
-import HireDealerAgenciesModal from "../pages/HireDealerAgenciesModal.jsx";
+import HireDealerAgenciesModal from "../pages/AgencyDealerPropertyPage/HireDealerAgenciesModal.jsx";
 import LoginPage from "../pages/authentication/LoginPage.jsx";
 import CommonView from "../pages/propertyPages/CommonView.jsx";
 import ForCouples from "../pages/propertyPages/ThroughAgents/ForCouples.jsx";

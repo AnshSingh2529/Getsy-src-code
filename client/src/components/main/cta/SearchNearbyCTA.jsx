@@ -43,19 +43,20 @@ function SearchNearbyCTA({ showNearby = true, variant = "default" }) {
           className={`lg:flex items-center justify-center gap-2 ${
             compact
               ? "px-5 py-5 text-sm bg-gray-700/60 rounded-md border border-gray-600 hover:border-gray-500 transition w-full"
-              : skyBlueGlass 
+              : skyBlueGlass
           }`}
         >
           {compact && (
             <div className="flex justify-between items-center">
               {" "}
-              <MapPinHouse size={compact ? 18 : 22} color="limegreen" />{" "}
+              <MapPinHouse size={compact ? 16 : 18} color="limegreen" />{" "}
             </div>
           )}
 
           {!compact && (
-            <span className="text-gray-300 font-medium truncate">
-              Search Nearby
+            <span className="text-gray-300 font-medium truncate flex items-center space-x-2">
+              <MapPinHouse size={compact ? 16 : 18} color="limegreen" />{" "}
+              <p>Nearby</p>
             </span>
           )}
         </motion.button>

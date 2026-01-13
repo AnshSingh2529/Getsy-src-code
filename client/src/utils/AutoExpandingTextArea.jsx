@@ -33,8 +33,8 @@ const AutoExpandingTextarea = () => {
 
   // Dynamic font size
   const getDynamicFontSize = (textLength) => {
-    if (textLength < 50) return "text-base";
-    if (textLength < 100) return "text-sm";
+    if (textLength < 50) return "text-xs";
+    if (textLength < 100) return "text-xs";
     if (textLength < 200) return "text-xs";
     return "text-xs";
   };
