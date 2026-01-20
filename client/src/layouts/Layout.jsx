@@ -19,14 +19,14 @@ const Layout = () => {
     "/agent-dashboard",
     "/admin-dashboard",
     "/owner-dashboard",
-    "/top-dealer-agencies-list",
+    "/top-agencies",
   ];
   const noNavbarRoutes = [
     "/user-dashboard",
     "/agent-dashboard",
     "/admin-dashboard",
     "/owner-dashboard",
-    "/top-dealer-agencies-list",
+    "/top-agencies",
   ];
 
   const isFooterExcluded = noFooterRoutes.some((route) =>

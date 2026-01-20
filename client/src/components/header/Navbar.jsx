@@ -191,7 +191,7 @@ function Navbar({ toggleDrawer }) {
             </NavLink>
 
             <NavLink
-              to="/top-dealer-agencies-list"
+              to="/top-agencies"
               className={({ isActive }) =>
                 `${navLinkClasses}  ${isActive ? theme.activeTextColor : ""}`
               }

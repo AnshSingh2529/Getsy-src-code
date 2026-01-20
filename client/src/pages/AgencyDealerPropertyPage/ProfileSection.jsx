@@ -8,7 +8,7 @@ import {
 
 function ProfileSection() {
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 h-full overflow-y-hidden outline-none">
       <div className="flex flex-col space-y-3 relative">
         {/* Background Banner Image */}
         <div className="relative flex items-center justify-center w-full bg-gray-500/10 rounded-md p-0 text-gray-400 h-20 text-xs">

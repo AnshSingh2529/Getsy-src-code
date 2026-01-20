@@ -34,7 +34,7 @@ export const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route
-          path="top-dealer-agencies-list"
+          path="top-agencies"
           element={<HireDealerAgenciesModal />}
         />
         <Route
