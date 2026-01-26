@@ -20,8 +20,8 @@ function HireDealerAgenciesModal() {
     activeFilter === "premium"
       ? "border-yellow-800"
       : activeFilter === "gFeatured"
-      ? "border-green-800"
-      : "border-gray-700";
+        ? "border-green-800"
+        : "border-gray-700";
 
   return (
     <div>
@@ -30,7 +30,7 @@ function HireDealerAgenciesModal() {
         <div className="flex">
           <button
             onClick={() => setActiveFilter("premium")}
-            className={`absolute -top-2.5 left-[25%] px-3 py-[1px] text-xs rounded-sm font-semibold border-t border-r border-l transition-all bg-yellow-800/40 outline-none
+            className={`absolute -top-2.5 left-[5%] px-3 py-[1px] text-xs rounded-sm font-semibold border-t border-r border-l transition-all bg-yellow-800/40 outline-none
             ${
               activeFilter === "premium"
                 ? "border-yellow-600 text-yellow-600"
@@ -42,7 +42,7 @@ function HireDealerAgenciesModal() {
 
           <button
             onClick={() => setActiveFilter("gFeatured")}
-            className={`absolute -top-2.5 left-[32%] px-3 py-[1px] text-xs rounded-sm font-semibold border-t border-r border-l transition-all bg-green-800/40 outline-none
+            className={`absolute -top-2.5 left-[13%] px-3 py-[1px] text-xs rounded-sm font-semibold border-t border-r border-l transition-all bg-green-800/40 outline-none
             ${
               activeFilter === "gFeatured"
                 ? "border-green-600 text-green-600"
@@ -70,7 +70,8 @@ function HireDealerAgenciesModal() {
       right-0
       bottom-0
       overflow-y-hidden
-      scrollbar-hide"
+      scrollbar-hide
+      "
       >
         <div
           className={`relative flex flex-1 m-2 border-2 rounded-xl transition-all ${borderClass} space-x-0.5
@@ -88,10 +89,57 @@ function HireDealerAgenciesModal() {
           {/* Propert and trusted partner showing section */}
           <div className="w-[70%] rounded-xl bg-gray-950/20">
             {/* Top Area */}
-            <div className="flex items-center justify-between w-full p-2">
+            <div className="flex items-center justify-start w-full p-2 gap-x-4">
+              {/* Trusted Partners */}
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="
+    group relative inline-flex items-center gap-2
+    px-4 py-2
+    rounded-lg
+    text-xs font-semibold tracking-wide
+    text-cyan-200
+    bg-gradient-to-r from-slate-900 via-cyan-900/40 to-slate-900
+    border border-cyan-600/50
+    shadow-md
+    hover:shadow-cyan-500/30
+    transition-all
+  "
+              >
+                {/* Left trust marker */}
+                <span className="flex items-center justify-center w-5 h-5 rounded-md bg-cyan-800/40 border border-cyan-600/40">
+                  <svg
+                    className="w-3 h-3 text-cyan-300"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2l7 4v6c0 5-3.5 9.5-7 10-3.5-.5-7-5-7-10V6l7-4z" />
+                  </svg>
+                </span>
+
+                <span>Trusted Partners</span>
+
+                {/* Right arrow = opens something */}
+                <svg
+                  className="w-3 h-3 text-cyan-400 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
+
+                {/* Click affordance glow */}
+                <span className="absolute inset-0 rounded-lg ring-1 ring-cyan-400/20 pointer-events-none" />
+              </motion.button>
+
               {/* Rent and Sale CTA */}
               <div className="bg-gray-950/10 rounded-md py-1 px-1 flex gap-1 border border-gray-800 text-xs">
-                {["rent", "sale", "lease"].map((type) => (
+                {["rent", "sale", "lease", "New-Projects"].map((type) => (
                   <motion.button
                     key={type}
                     whileTap={{ scale: 0.94 }}
@@ -100,8 +148,8 @@ function HireDealerAgenciesModal() {
         px-4 py-2 rounded-md font-semibold capitalize transition-all
         ${
           propertyType === type
-            ? "bg-indigo-600 text-white shadow-sm"
-            : "text-indigo-400 hover:bg-indigo-500/10"
+            ? "bg-gray-800/80 text-white shadow-sm"
+            : "text-indigo-300/40 hover:bg-indigo-500/10"
         }
       `}
                   >
@@ -242,7 +290,7 @@ function HireDealerAgenciesModal() {
     text-xs font-semibold
     rounded-xl
     border border-cyan-400/30
-    bg-cyan-500/10
+    bg-cyan-950/80
     text-cyan-300
     backdrop-blur-sm
     hover:bg-cyan-500/20 hover:text-white

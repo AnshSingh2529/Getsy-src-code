@@ -72,15 +72,125 @@ function ProfileSection() {
           <p>WhatsApp</p> <MessageCircleMore width={12} height={12} />
         </motion.button>
       </div>
-      {/* About Section */}
-      <div className="flex items-center justify-center text-pretty text-center p-2 text-[8px] text-gray-700 font-extralight bg-gray-800/30 rounded-md h-16 truncate">
-        {" `` "}
-        About Section of this Profile*
-        {" `` "}
-      </div>
+
       <div className="w-full h-[1px] bg-gray-700/10"></div>
-      <div className="flex items-center justify-center text-pretty text-center p-2 text-[8px] text-gray-700 font-extralight bg-gray-950/30 rounded-md truncate h-32">
-        Advertisement Area*
+      {/* Introduction – Video Placeholders */}
+      <div className="p-3 bg-gray-950/30 rounded-xl">
+        <div className="grid grid-cols-3 gap-3">
+          {/* Main Videos */}
+          {[1, 2].map((_, idx) => (
+            <div
+              key={idx}
+              className="
+          relative h-24
+          rounded-lg
+          border border-gray-800/60
+          bg-gradient-to-br from-gray-900/60 to-gray-950/60
+          flex items-center justify-center
+          overflow-hidden
+        "
+            >
+              {/* Play Icon */}
+              <div
+                className="
+          flex items-center justify-center
+          w-8 h-8
+          rounded-full
+          bg-black/50
+          border border-gray-700
+          backdrop-blur-sm cursor-pointer
+        "
+              >
+                <svg
+                  className="w-5 h-5 text-white ml-0.5"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+
+              {/* Label */}
+              <span className="absolute bottom-1 left-2 translate-x-0 text-[8px] text-gray-400 tracking-wide">
+                Partner Overview
+              </span>
+            </div>
+          ))}
+
+          {/* Show More */}
+          <div
+            className="
+        relative h-24
+        rounded-lg
+        border border-dashed border-gray-700
+        bg-gray-900/20
+        flex flex-col items-center justify-center
+        text-gray-400
+        cursor-pointer
+        hover:border-gray-500 hover:text-gray-300
+        transition
+      "
+          >
+            <span className="text-sm font-semibold">+ More</span>
+            <span className="text-[10px] tracking-wide mt-1">
+              View all videos
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials – Client Deal Avatars */}
+      <div className="p-3 bg-gray-950/30 rounded-xl">
+        <p className="text-xs font-semibold text-gray-400 mb-2 tracking-wide">
+          RECENT DEALS CLOSED
+        </p>
+
+        <div className="grid grid-cols-6 gap-3 items-center">
+          {[1, 2, 3, 4, 5].map((_, idx) => (
+            <div
+              key={idx}
+              className="
+          flex flex-col items-center gap-1
+        "
+            >
+              {/* Client Image */}
+              <div
+                className="
+          w-10 h-10
+          rounded-full
+          border border-gray-700
+          bg-gray-800
+          overflow-hidden
+        "
+              >
+                <img
+                  src={`https://i.pravatar.cc/100?img=${idx + 10}`}
+                  alt="Client"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Deal Tag */}
+              <span className="text-[5px] text-gray-500">Client Name</span>
+            </div>
+          ))}
+
+          {/* More indicator */}
+          <div
+            className="
+      flex items-center justify-center
+      w-10 h-10
+      rounded-full
+      border border-dashed border-gray-700
+      text-xs text-gray-500
+      cursor-pointer
+      hover:border-gray-500 hover:text-gray-300
+      transition
+    "
+          >
+            +12
+          </div>
+        </div>
       </div>
     </div>
   );
