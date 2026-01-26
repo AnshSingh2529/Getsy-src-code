@@ -149,7 +149,7 @@ function HireDealerAgenciesModal() {
         ${
           propertyType === type
             ? "bg-gray-800/80 text-white shadow-sm"
-            : "text-indigo-300/40 hover:bg-indigo-500/10"
+            : "text-indigo-300/60 hover:bg-indigo-500/10"
         }
       `}
                   >

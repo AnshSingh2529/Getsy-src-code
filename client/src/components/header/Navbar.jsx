@@ -67,7 +67,7 @@ function Navbar({ toggleDrawer }) {
         logoFilter: "brightness-0 invert",
         textColor: "text-gray-300",
         textHoverColor: "hover:text-white",
-        activeTextColor: "bg-gray-800/50 text-white",
+        activeTextColor: "bg-gray-800/50 text-white border-t border-green-800",
         heartColor: "text-gray-100 hover:text-red-900",
         dividerColor: "bg-gray-700",
         loginButtonBg:
@@ -99,7 +99,7 @@ function Navbar({ toggleDrawer }) {
       logoFilter: "brightness-100",
       textColor: "text-gray-600",
       textHoverColor: "hover:text-gray-400",
-      activeTextColor: "bg-gray-800/60 text-white shadow-2xl",
+      activeTextColor: "bg-gray-800/60 text-white shadow-2xl border-t border-green-800",
       heartColor: "text-gray-100 hover:text-red-900",
       dividerColor: "bg-gray-700",
       loginButtonBg:
@@ -135,7 +135,7 @@ function Navbar({ toggleDrawer }) {
     navigate("user-profile");
   };
 
-  const navLinkClasses = `text-sm font-normal transition-all duration-400 ease-in-out rounded-lg px-4 py-2 shadow-none ${theme.textColor} ${theme.textHoverColor}`;
+  const navLinkClasses = `text-xs font-normal transition-all duration-400 ease-in-out rounded-lg px-4 py-1.5 shadow-none ${theme.textColor} ${theme.textHoverColor}`;
 
   const getActiveLinkStyle = (isActive) => {
     if (isActive) {
@@ -160,12 +160,12 @@ function Navbar({ toggleDrawer }) {
         className={`fixed z-50 top-0 w-full transition-all duration-500 ${theme.navbarBg}`}
       >
         {/* Desktop and Tablet Navigation */}
-        <div className="h-18 sm:h-14 md:h-16 lg:h-20 px-5 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between py-4">
+        <div className="h-14 sm:h-14 md:h-14 lg:h-14 px-5 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between py-4">
           {/* Left Section - Logo */}
           <motion.img
             src="../src/assets/images/web-logo.png"
             alt="logo"
-            className={`cursor-pointer w-28 h-auto sm:w-20 md:w-24 lg:w-28 transition-all duration-500`}
+            className={`cursor-pointer w-20 h-auto sm:w-20 md:w-24 lg:w-20 transition-all duration-500`}
             style={{ filter: theme.logoFilter }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -206,13 +206,13 @@ function Navbar({ toggleDrawer }) {
                 <motion.button
                   whileTap={{ scale: 0.92 }}
                   onClick={handlePostProperty}
-                  className={` flex items-center px-5 py-3 sm:py-2 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${theme.postPropertyBtn}`}
+                  className={` flex items-center px-4 py-2 sm:py-2 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 ${theme.postPropertyBtn}`}
                 >
                   <span className="hidden xl:inline w-full">Post Property</span>
                   <span className="xl:hidden">Post</span>
                   <LucideHousePlug className="size-4 text-gray-300 ml-1 xl:ml-2" />
                 </motion.button>
-                <div className="absolute top-1 right-3 text-black bg-gradient-to-r from-white/10 to-white px-3 py-1 bg-transparent rounded-md font-medium text-xs">
+                <div className="absolute top-1 right-3 text-black bg-gradient-to-r from-white/10 to-white px-3 py-1 bg-transparent rounded-md font-medium text-[8px]">
                   Free
                 </div>
               </div>
@@ -227,7 +227,7 @@ function Navbar({ toggleDrawer }) {
               onClick={() => navigate("/wishlist")}
               className="cursor-pointer p-1 sm:p-2 transition-colors duration-300 font-mono"
             >
-              <Heart className={`size-4 sm:size-5  ${theme.heartColor}`} />
+              <Heart className={`size-4  ${theme.heartColor}`} />
             </motion.div>
 
             {/* Post Property Button - Mobile only */}
@@ -244,7 +244,7 @@ function Navbar({ toggleDrawer }) {
 
             {/* Divider - Hidden on mobile */}
             <div
-              className={`lg:block w-[1px] h-[40px] transition-colors duration-300 ${theme.dividerColor}`}
+              className={`lg:block w-[1px] h-[25px] transition-colors duration-300 ${theme.dividerColor}`}
             ></div>
 
             {/* Desktop Login Button - Hidden on smaller screens */}
@@ -258,7 +258,7 @@ function Navbar({ toggleDrawer }) {
                 <div
                   className={`h-3 lg:h-4 w-[1px] transition-colors duration-300 ${theme.loginButtonDivider}`}
                 ></div>
-                <span className="text-xs lg:text-sm">Login</span>
+                <span className="text-xs">Login</span>
               </motion.button>
             ) : (
               <motion.button
