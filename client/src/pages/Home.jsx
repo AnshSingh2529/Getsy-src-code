@@ -21,15 +21,15 @@ const HomePage = () => {
   const canBecomeAgencyDealer = !user || user?.role === "user";
 
   return (
-    <div className="min-h-screen w-full bg-[#131515] p-4">
+    <div className="min-h-screen w-full bg-[#131515] px-4">
       {/* Main Vertical Stack Container */}
-      <div className="flex flex-col gap-8 md:gap-12 max-w-7xl mx-auto md:px-5 md:items-stretch md:box-content">
+      <div className="flex flex-col  mx-auto md:px-2  md:box-content">
         {/* Section 1: Banner + SearchCard (Horizontal on Desktop) */}
-        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between box-content">
+        <section className="flex flex-col lg:flex-row gap-x-2 md:gap-x-2 lg:gap-x-4 w-full box-content">
           {/* Banner - Left Side */}
-          <div className="flex-1 lg:max-w-max">
+          <div className="flex-1 lg:w-[55%] h-screen">
             <div className="hidden lg:block">
-              <DesktopBanner showCTA={canBecomeAgencyDealer} />
+              <PropertyDiscovery />
             </div>
             <div className="lg:hidden">
               <div className="lg:flex-1 lg:flex lg:max-w-max lg:mx-auto">
@@ -42,22 +42,22 @@ const HomePage = () => {
           </div>
 
           {/* SearchCard + PropertyDiscovery - Right Side */}
-          <div className="flex-1 lg:max-w-md space-y-4">
+          <div className="flex-1 mt-4 lg:m-0">
             <SearchCard
               onFiltersChange={setSearchFilters}
               currentFilters={searchFilters}
             />
             <div className="hidden lg:block">
-              <PropertyDiscovery />
+              <DesktopBanner showCTA={canBecomeAgencyDealer} />
             </div>
           </div>
         </section>
         {/* PropertyDiscovery - Mobile Only (below QuickActions) */}
-        <section className="lg:hidden">
+        <section className="lg:hidden mt-4 lg:m-0">
           <PropertyDiscovery />
         </section>
         {/* Section 2: FeatureHighlights + QuickActions (Horizontal on Desktop) */}
-        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content">
+        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content my-4">
           {/* QuickActions - Right Side */}
           <div className="lg:flex-1 lg:flex lg:max-w-max hidden lg:mx-auto">
             <AnimatedCard>

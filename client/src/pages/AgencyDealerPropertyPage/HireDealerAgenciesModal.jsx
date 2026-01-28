@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import ProfileSection from "./ProfileSection";
 import PropertySection from "./PropertySection";
-import { motion, spring } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
@@ -226,18 +226,6 @@ function HireDealerAgenciesModal() {
           }
         >
           Agencies
-        </NavLink>
-
-        <NavLink
-          to="/dealers"
-          className={({ isActive }) =>
-            `
-      px-3 py-2 text-xs font-medium rounded-md transition
-      ${isActive ? "text-white bg-white/10" : "text-gray-400 hover:text-white"}
-      `
-          }
-        >
-          Dealers
         </NavLink>
 
         <NavLink

@@ -11,9 +11,9 @@ function PropertyView({
   prop_name,
 }) {
   return (
-    <div className="flex flex-col space-y-2 flex-1 border border-gray-800/20 shadow-inner shadow-gray-800/40 p-1 rounded-md bg-gray-800/20 cursor-pointer">
+    <div className="flex flex-col w-full space-y-2 border border-gray-800/20 shadow-inner shadow-gray-800/40 p-1 rounded-md bg-gray-800/20 cursor-pointer">
       {/* Property Photos Slider */}
-      <div className="relative flex items-start justify-center  bg-gray-900/30 rounded-md p-0  shadow-inner shadow-gray-900/30 border border-gray-950 w-56 h-28 overflow-hidden">
+      <div className="relative flex items-start justify-center  bg-gray-900/30 rounded-md p-0  shadow-inner shadow-gray-900/30 border border-gray-950 w-full h-28 overflow-hidden">
         <img
           src={prop_image}
           alt={prop_name}
@@ -28,7 +28,7 @@ function PropertyView({
         </motion.span>
       </div>
       {/* Property Title and Details */}
-      <div className="flex flex-col space-y-2 w-56">
+      <div className="flex flex-col space-y-2 w-full">
         {/* search bhk title */}
         <p className="text-[8px] text-gray-400 font-normal truncate">
           {prop_title}
