@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import TenantRequestForm from "../../../modalForms/tenants/TenantRequestForm";
-import { MapPinHouse, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { skyBlueGlass } from "../../../utils/EnhanceButtons";
+import voice_icon from "../../../assets/images/voice_icon.png";
 
 function SearchNearbyCTA({ showNearby = true, variant = "default" }) {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ function SearchNearbyCTA({ showNearby = true, variant = "default" }) {
           console.error("Error fetching location:", error);
           alert("Unable to retrieve your location.");
           setOpen(false);
-        }
+        },
       );
     } else {
       alert("Geolocation not supported by your browser.");
@@ -40,23 +40,31 @@ function SearchNearbyCTA({ showNearby = true, variant = "default" }) {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={handleCurrentLocationSearch}
-          className={`lg:flex items-center justify-center gap-2 ${
+          className={` lg:flex items-center justify-center gap-2 ${
             compact
-              ? "px-5 py-5 text-sm bg-gray-700/60 rounded-md border border-gray-600 hover:border-gray-500 transition w-full"
+              ? "px-1 py-1 h-full text-sm bg-gray-700/60 rounded-md border border-gray-600 hover:border-gray-500 transition w-full"
               : skyBlueGlass
           }`}
         >
           {compact && (
-            <div className="flex justify-between items-center">
+            <div className="">
               {" "}
-              <MapPinHouse size={compact ? 16 : 18} color="limegreen" />{" "}
+              <img
+                src={voice_icon}
+                alt="ai_search"
+                className="w-12 h-10 object-cover brightness-100"
+              />
             </div>
           )}
 
           {!compact && (
-            <span className="text-gray-300 font-medium truncate flex items-center space-x-2">
-              <MapPinHouse size={compact ? 16 : 18} color="limegreen" />{" "}
-              <p>Nearby</p>
+            <span className="text-blue-300 font-medium flex items-center justify-center text-xs px-2">
+              <img
+                src={voice_icon}
+                alt="ai_search"
+                className="w-10 h-8 object-cover brightness-100"
+              />
+              <p>Search</p>
             </span>
           )}
         </motion.button>

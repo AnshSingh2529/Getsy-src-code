@@ -4,6 +4,8 @@ import AgencyDealerCTA from "../cta/AgencyDealerCTA";
 import AnimatedCard from "./AnimatedCard";
 import QuickActions from "../QuickActions";
 
+import addImage from "../../../assets/images/Modern_design.png";
+
 const DesktopBanner = ({ showCTA }) => {
   return (
     <div className="flex items-center justify-center bg-[#131515] outline-none">
@@ -24,13 +26,20 @@ const DesktopBanner = ({ showCTA }) => {
 
         {showCTA && <AgencyDealerCTA />}
 
-        <p className="text-lg text-gray-600 max-w-md leading-loose">
-          Search for thousands of VERIFIED AGENCIES & DEALER in your area in
+        <p className="text-base text-gray-600 max-w-md leading-loose">
+          Search for thousands of VERIFIED AGENCIES & BROKER in your area in
           just a{" "}
           <span className="bg-blue-400 text-white rounded-md p-1">
             few clicks
           </span>
         </p>
+        <div className="border border-gray-700/10 w-full h-auto p-1 shadow-inner shadow-gray-950 rounded-md outline-none">
+          <img
+            src={addImage}
+            alt=""
+            className="object-cover w-full h-56 rounded-md"
+          />
+        </div>
       </motion.div>
       <div className="lg:hidden">
         <AnimatedCard>

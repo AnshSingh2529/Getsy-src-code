@@ -28,7 +28,7 @@ const SearchBar = ({
       className={`w-full flex flex-1 lg:space-x-2 items-center justify-stretch box-content`}
     >
       <div className="hidden lg:flex">
-        <SearchNearbyCTA showNearby={true} variant="default" />
+        <SearchNearbyCTA showNearby={true} variant="compact" />
       </div>
 
       {/* Search box */}

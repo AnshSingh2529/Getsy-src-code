@@ -32,7 +32,7 @@ const colorMap = {
 
 export default function QuickActions() {
   return (
-    <div className="w-full grid md:grid-cols-2 md:gap-3 grid-cols-4 gap-2">
+    <div className="w-full grid md:grid-cols-4 md:gap-3 grid-cols-4 gap-2">
       {actions.map(({ icon: Icon, label, color }) => {
         const styles = colorMap[color];
 
@@ -45,12 +45,12 @@ export default function QuickActions() {
               bg-gradient-to-r ${styles.bg}
               ${styles.border}
               ${styles.text}
-              rounded-lg lg:p-3 p-1
+              rounded-lg lg:p-2 p-1
               transition-all
               flex flex-col items-center gap-2
             `}
           >
-            <Icon className="w-5 h-5" />
+            <Icon className="w-5 h-5 md:h-4 md:w-4" />
             <span className="text-xs">{label}</span>
           </motion.button>
         );

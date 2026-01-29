@@ -37,7 +37,7 @@ const AgencyDealerCTA = ({ compact = false }) => {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="relative flex items-center gap-3">
           <Briefcase className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-          <span>Become a Dealer</span>
+          <span>Become a Broker</span>
           <svg
             className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
             fill="none"

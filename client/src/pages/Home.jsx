@@ -27,9 +27,9 @@ const HomePage = () => {
         {/* Section 1: Banner + SearchCard (Horizontal on Desktop) */}
         <section className="flex flex-col lg:flex-row gap-x-2 md:gap-x-2 lg:gap-x-4 w-full box-content">
           {/* Banner - Left Side */}
-          <div className="flex-1 lg:w-[55%] h-screen">
+          <div className="flex-1 lg:w-[55%] h-auto">
             <div className="hidden lg:block">
-              <PropertyDiscovery />
+              <DesktopBanner showCTA={canBecomeAgencyDealer} />
             </div>
             <div className="lg:hidden">
               <div className="lg:flex-1 lg:flex lg:max-w-max lg:mx-auto">
@@ -47,8 +47,13 @@ const HomePage = () => {
               onFiltersChange={setSearchFilters}
               currentFilters={searchFilters}
             />
+            <div className="lg:flex-1 lg:flex w-full lg:mx-auto hidden mt-2">
+              <AnimatedCard>
+                <QuickActions />
+              </AnimatedCard>
+            </div>
             <div className="hidden lg:block">
-              <DesktopBanner showCTA={canBecomeAgencyDealer} />
+              <PropertyDiscovery />
             </div>
           </div>
         </section>
@@ -57,7 +62,7 @@ const HomePage = () => {
           <PropertyDiscovery />
         </section>
         {/* Section 2: FeatureHighlights + QuickActions (Horizontal on Desktop) */}
-        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content my-4">
+        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content lg:mt-10 mt-4">
           {/* QuickActions - Right Side */}
           <div className="lg:flex-1 lg:flex lg:max-w-max hidden lg:mx-auto">
             <AnimatedCard>

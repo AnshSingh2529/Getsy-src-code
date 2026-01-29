@@ -224,7 +224,7 @@ const PropertyDiscovery = () => {
   };
 
   return (
-    <section className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 w-full max-w-7xl mx-auto h-auto">
+    <section className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 w-full max-w-7xl mx-auto h-auto lg:mt-6">
       <div className="lg:p-0 mx-auto">
         {/* Top Slider Menu Bar */}
         <div className="mb-2 sm:mb-1 lg:mb-2 mx-auto p-0">
@@ -265,6 +265,78 @@ const PropertyDiscovery = () => {
           </div>
         </div>
         {/* Common View Cards Container */}
+        <div className="mt-5">
+  <div className="
+    grid grid-cols-2
+    grid-rows-2
+    gap-4
+    max-w-4xl
+    mx-auto
+  ">
+    {currentCards.slice(0, 4).map((card, index) => {
+      const Icon = card.icon;
+      return (
+        <div
+          key={index}
+          onClick={() => handleCardClick(card.category)}
+          className="
+            group cursor-pointer
+            rounded-2xl
+            border border-slate-700/50
+            bg-gradient-to-b from-slate-900/60 to-slate-900/30
+            p-5
+            transition-all duration-300
+            hover:border-slate-500/60
+            hover:shadow-[0_10px_28px_rgba(0,0,0,0.35)]
+          "
+        >
+          {/* Header */}
+          <div className="flex items-start justify-between mb-4">
+            <div
+              className={`
+                w-11 h-11 rounded-xl
+                flex items-center justify-center
+                bg-gradient-to-br ${card.gradient}
+              `}
+            >
+              <Icon className="w-5 h-5 text-white" />
+            </div>
+
+            <ArrowRight className="
+              w-4 h-4
+              text-slate-500
+              opacity-0
+              -translate-x-1
+              group-hover:opacity-100
+              group-hover:translate-x-0
+              transition-all
+            " />
+          </div>
+
+          {/* Content */}
+          <h3 className="text-sm font-semibold text-slate-100 mb-1 leading-tight">
+            {card.title}
+          </h3>
+
+          <p className="text-xs text-slate-400 leading-relaxed mb-4">
+            {card.description}
+          </p>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between pt-3 border-t border-slate-700/40">
+            <span className="text-xs text-slate-500 tracking-wide">
+              Listings
+            </span>
+            <span className="text-sm font-semibold text-slate-200">
+              {card.count.toLocaleString()}
+            </span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>
+
       </div>
     </section>
   );
