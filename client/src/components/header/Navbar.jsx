@@ -94,7 +94,7 @@ function Navbar({ toggleDrawer }) {
                 }`
               }
             >
-              Agencies
+              Firms
             </NavLink>
 
             <NavLink

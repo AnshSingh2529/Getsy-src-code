@@ -225,7 +225,7 @@ function HireDealerAgenciesModal() {
     `
           }
         >
-          Agencies
+          Firms
         </NavLink>
 
         <NavLink
