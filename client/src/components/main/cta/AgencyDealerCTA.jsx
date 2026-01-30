@@ -1,12 +1,17 @@
 import { Building2, Briefcase } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AgencyDealerCTA = ({ compact = false }) => {
   const basePadding = compact ? "px-4 py-2" : "px-6 py-4";
-
+  const navigate = useNavigate();
+  const handleRegisterFirm = () => {
+    navigate("/register-your-firm");
+  };
   return (
     <div className="flex flex-wrap gap-3">
       {/* Register Agency */}
       <button
+        onClick={handleRegisterFirm}
         className={`group relative ${basePadding} bg-gradient-to-r from-green-800 text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-700`}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { useAuth } from "../hooks/useAuth.jsx";
+import { useAuth } from "../../hooks/useAuth.jsx";
 import { motion } from "framer-motion";
 import { CheckCircle, X } from "lucide-react";
-import SearchCard from "../components/main/SearchCard.jsx";
-import DesktopBanner from "../components/main/ui/DesktopBanner.jsx";
-import MobileBanner from "../components/main/ui/MobileBanner.jsx";
+import SearchCard from "../main/SearchCard.jsx";
+import DesktopBanner from "../main/ui/DesktopBanner.jsx";
+import MobileBanner from "../main/ui/MobileBanner.jsx";
+import QuickActions from "../main/QuickActions.jsx";
+import AnimatedCard from "../main/ui/AnimatedCard.jsx";
+import PropertyDiscovery from "../main/PropertDiscovery.jsx";
+import FeatureHighlights from "../main/ui/FeatureHighlights.jsx";
 
-import QuickActions from "../components/main/QuickActions.jsx";
-import AnimatedCard from "../components/main/ui/AnimatedCard.jsx";
-import PropertyDiscovery from "../components/main/PropertDiscovery.jsx";
-import FeatureHighlights from "../components/main/ui/FeatureHighlights.jsx";
+// New Components
+import TrustedBySection from "../main/TrustedBySection.jsx";
+import ServicePackages from "../main/ServicePackages.jsx";
+import SuccessStories from "../main/SuccessStories.jsx";
+import PlatformStats from "../main/PlatformStats.jsx";
+import HowItWorks from "../main/HowItWorks.jsx";
+import CTASection from "../main/CTASection.jsx";
+import FAQSection from "../main/FAQSection.jsx";
 
 const HomePage = () => {
   const { user } = useAuth();
@@ -23,7 +31,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen w-full bg-[#131515] px-4">
       {/* Main Vertical Stack Container */}
-      <div className="flex flex-col  mx-auto md:px-2  md:box-content">
+      <div className="flex flex-col mx-auto md:px-2 md:box-content">
         {/* Section 1: Banner + SearchCard (Horizontal on Desktop) */}
         <section className="flex flex-col lg:flex-row gap-x-2 md:gap-x-2 lg:gap-x-4 w-full box-content">
           {/* Banner - Left Side */}
@@ -57,22 +65,51 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+
         {/* PropertyDiscovery - Mobile Only (below QuickActions) */}
         <section className="lg:hidden mt-4 lg:m-0">
           <PropertyDiscovery />
         </section>
-        {/* Section 2: FeatureHighlights + QuickActions (Horizontal on Desktop) */}
+
+        {/* Section 3: FeatureHighlights + QuickActions (Horizontal on Desktop) */}
         <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content lg:mt-10 mt-4">
           {/* QuickActions - Right Side */}
           <div className="lg:flex-1 lg:flex lg:max-w-max hidden lg:mx-auto">
-            <AnimatedCard>
-              <QuickActions />
-            </AnimatedCard>
+            {/* Section 2: Platform Statistics */}
+            <div className="flex-1">
+              <PlatformStats />
+            </div>
           </div>
           {/* FeatureHighlights - Left Side */}
           <div className="flex-1">
             <FeatureHighlights />
           </div>
+        </section>
+
+        {/* Section 4: Trusted By Companies */}
+        <section className="mt-8 lg:mt-16">
+          <TrustedBySection />
+        </section>
+
+        {/* Section 5: How It Works */}
+        <section className="mt-8 lg:mt-16">
+          <HowItWorks />
+        </section>
+
+
+        {/* Section 7: Success Stories */}
+        <section className="mt-8 lg:mt-16">
+          <SuccessStories />
+        </section>
+
+        {/* Section 8: FAQ Section */}
+        <section className="mt-8 lg:mt-16">
+          <FAQSection />
+        </section>
+
+        {/* Section 9: Final CTA */}
+        <section className="mt-8 lg:mt-16 mb-12">
+          <CTASection showCTA={canBecomeAgencyDealer} />
         </section>
       </div>
 
