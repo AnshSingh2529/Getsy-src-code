@@ -137,7 +137,7 @@ class AgencyViewSet(viewsets.ModelViewSet):
         if self.action in ["update", "partial_update", "destroy"]:
             return [IsAgency()]
 
-        if self.action in ["list"]:
+        if self.action in ["list", "destroy", "create", "update", "partial_update"]:
             return [IsAdminUser()]
 
         return [IsAuthenticated()]
@@ -172,7 +172,7 @@ class DealerViewSet(viewsets.ModelViewSet):
         if self.action in ["update", "partial_update", "destroy"]:
             return [IsDealer()]
 
-        if self.action in ["list"]:
+        if self.action in ["list", "destroy", "create", "update", "partial_update"]:
             return [IsAdminUser()]
 
         return [IsAuthenticated()]
