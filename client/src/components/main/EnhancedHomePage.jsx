@@ -29,7 +29,7 @@ const HomePage = () => {
   const canBecomeAgencyDealer = !user || user?.role === "user";
 
   return (
-    <div className="min-h-screen w-full bg-[#131515] px-4">
+    <div className="min-h-screen w-full bg-[#131515] px-4 lg:mt-8">
       {/* Main Vertical Stack Container */}
       <div className="flex flex-col mx-auto md:px-2 md:box-content">
         {/* Section 1: Banner + SearchCard (Horizontal on Desktop) */}
