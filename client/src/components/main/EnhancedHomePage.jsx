@@ -9,7 +9,7 @@ import MobileBanner from "../main/ui/MobileBanner.jsx";
 import QuickActions from "../main/QuickActions.jsx";
 import AnimatedCard from "../main/ui/AnimatedCard.jsx";
 import PropertyDiscovery from "../main/PropertDiscovery.jsx";
-import FeatureHighlights from "../main/ui/FeatureHighlights.jsx";
+import MemberWorkspaceBanner from "../main/ui/MemberWorkspaceBanner.jsx";
 
 // New Components
 import TrustedBySection from "../main/TrustedBySection.jsx";
@@ -29,7 +29,7 @@ const HomePage = () => {
   const canBecomeAgencyDealer = !user || user?.role === "user";
 
   return (
-    <div className="min-h-screen w-full bg-[#131515] px-4 lg:mt-8">
+    <div className="min-h-screen w-full bg-[#131515] px-4">
       {/* Main Vertical Stack Container */}
       <div className="flex flex-col mx-auto md:px-2 md:box-content">
         {/* Section 1: Banner + SearchCard (Horizontal on Desktop) */}
@@ -50,7 +50,7 @@ const HomePage = () => {
           </div>
 
           {/* SearchCard + PropertyDiscovery - Right Side */}
-          <div className="flex-1 mt-4 lg:m-0">
+          <div className="flex-1 mt-4 lg:mt-8 lg:m-0">
             <SearchCard
               onFiltersChange={setSearchFilters}
               currentFilters={searchFilters}
@@ -65,41 +65,36 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-
+        {/* MemberWorkspaceBanner */}
+        <div className="lg:flex flex-1 mt-8 hidden">
+          <MemberWorkspaceBanner />
+        </div>
         {/* PropertyDiscovery - Mobile Only (below QuickActions) */}
         <section className="lg:hidden mt-4 lg:m-0">
           <PropertyDiscovery />
-        </section>
-
-        {/* Section 3: FeatureHighlights + QuickActions (Horizontal on Desktop) */}
-        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content lg:mt-10 mt-4">
-          {/* QuickActions - Right Side */}
-          <div className="lg:flex-1 lg:flex lg:max-w-max hidden lg:mx-auto">
-            {/* Section 2: Platform Statistics */}
-            <div className="flex-1">
-              <PlatformStats />
-            </div>
-          </div>
-          {/* FeatureHighlights - Left Side */}
-          <div className="flex-1">
-            <FeatureHighlights />
-          </div>
         </section>
 
         {/* Section 4: Trusted By Companies */}
         <section className="mt-8 lg:mt-16">
           <TrustedBySection />
         </section>
-
-        {/* Section 5: How It Works */}
-        <section className="mt-8 lg:mt-16">
-          <HowItWorks />
-        </section>
-
-
         {/* Section 7: Success Stories */}
         <section className="mt-8 lg:mt-16">
           <SuccessStories />
+        </section>
+        {/* Section 3: MemberWorkspaceBanner + QuickActions (Horizontal on Desktop) */}
+        <section className="flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 lg:items-center lg:justify-between lg:box-content lg:mt-10 mt-4">
+          {/* QuickActions - Right Side */}
+          <div className="lg:flex-1 lg:flex lg:max-w-max hidden lg:mx-auto">
+            {/* Section 2: Platform Statistics */}
+            <div className="flex-1 mt-12">
+              <PlatformStats />
+            </div>
+          </div>
+        </section>
+        {/* Section 5: How It Works */}
+        <section className="mt-8 lg:mt-16">
+          <HowItWorks />
         </section>
 
         {/* Section 8: FAQ Section */}

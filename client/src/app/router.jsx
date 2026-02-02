@@ -25,6 +25,7 @@ import AgencyDashboard from "../dashboards/Agents/AgencyDashboard.jsx";
 import DealersDashboard from "../dashboards/Dealers/DealersDashboard.jsx";
 import AgencyRegistration from "../pages/NewRegistrationPage/AgencyRegistration.jsx";
 import HomePage from "../components/main/EnhancedHomePage.jsx";
+import BrokerRegistration from "../pages/NewRegistrationPage/BrokerRegistration.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +37,7 @@ export const router = createBrowserRouter(
         {/* <Route index element={<Home />} /> */}
         <Route index element={<HomePage />} />
         <Route path="top-agencies" element={<HireDealerAgenciesModal />} />
+        <Route path="wishlist" element={<WishlistPage />} />
 
         <Route
           element={<ProtectedRoutes allowedRoles={["agency", "dealer"]} />}
@@ -84,6 +86,7 @@ export const router = createBrowserRouter(
 
         <Route path="*" element={<Getsy404Page />} />
         <Route path="/register-your-firm" element={<AgencyRegistration />} />
+        <Route path="/join-as-broker" element={<BrokerRegistration />} />
       </Route>
     </>,
   ),

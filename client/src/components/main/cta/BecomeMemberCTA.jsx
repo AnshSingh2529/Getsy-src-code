@@ -8,7 +8,7 @@ function BecomeMemberCTA({ compact = false }) {
     <div>
       {/* Become Dealer */}
       <button
-        className={`group relative ${basePadding} bg-gradient-to-r from-emerald-800 to-emerald-700 text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-950/50`}
+        className={`group relative ${basePadding} bg-gradient-to-r from-emerald-800/70 to-emerald-700/80 text-white font-semibold rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-emerald-950/50`}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="relative flex items-center gap-3">

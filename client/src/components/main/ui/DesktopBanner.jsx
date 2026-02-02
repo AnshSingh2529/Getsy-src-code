@@ -46,7 +46,7 @@ const DesktopBanner = ({ showCTA }) => {
             {[1, 2, 3, 4].map((_, index) => (
               <div
                 key={index}
-                className="w-full h-28 rounded-lg border border-gray-800/40 bg-gradient-to-b from-gray-800/40 to-gray-900/60 shadow-inner shadow-black/30 transition-all hover:border-gray-600/50 cursor-pointer"
+                className="w-full h-32 rounded-lg border border-gray-800/40 bg-gradient-to-b from-gray-800/40 to-gray-900/60 shadow-inner shadow-black/30 transition-all hover:border-gray-600/50 cursor-pointer"
               >
                 {/* Placeholder for property card */}
               </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import {GiftIcon} from "lucide-react";
+import { GiftIcon, Lock } from "lucide-react";
 
 export default function GoogleLoginModal() {
   const handleGoogleLogin = () => {
@@ -8,39 +8,35 @@ export default function GoogleLoginModal() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center backdrop-blur-md">
+    <div className="flex items-center justify-center backdrop-blur-md mb-12 px-4">
       {/* Modal Card */}
-      <div className="bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all border border-gray-700">
-        {/* Logo/Icon Section */}
+      <div className="relative w-full max-w-md rounded-2xl border border-gray-700/60 bg-gray-900/70 shadow-inner shadow-gray-800 p-8 transition-all">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-700 to-emerald-800 rounded-full mb-4">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-600 to-green-800 shadow-inner">
+            <Lock className="h-7 w-7 text-white" />
           </div>
-          <h2 className="flex justify-center items-center space-x-2 md:text-3xl text-xl font-bold text-gray-400 mb-2">
-            <span className="md:w-max lg:w-full">More Benefit Awaits</span>
-            <span><GiftIcon color="yellow"/></span> 
+
+          <h2 className="flex items-center justify-center gap-2 text-2xl md:text-3xl font-semibold text-gray-200 tracking-tight">
+            More Benefits Await
+            <GiftIcon className="h-5 w-5 text-yellow-400" />
           </h2>
-          <p className="text-gray-500 text-sm">Sign in to continue to your account</p>
+
+          <p className="mt-2 text-sm text-gray-400">
+            Sign in to unlock personalized features
+          </p>
         </div>
 
-        {/* Google Login Button */}
+        {/* Google Button */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 bg-blue-700 border border-blue-500 rounded-xl px-6 py-4 text-gray-200 font-semibold hover:bg-blue-900 hover:border-blue-400 transition-all duration-200 shadow-sm hover:shadow-md"
+          className="group relative flex w-full items-center justify-center gap-3 rounded-xl border border-gray-600 bg-gray-800 px-6 py-4 text-sm font-medium text-gray-200 transition-all
+          hover:border-gray-500 hover:bg-gray-700
+          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-900
+          active:scale-[0.98]"
         >
-          <svg className="w-6 h-6" viewBox="0 0 24 24">
+          {/* Google Icon */}
+          <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -58,32 +54,35 @@ export default function GoogleLoginModal() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          Continue with Google
+
+          <span className="tracking-wide">Continue with Google</span>
         </button>
 
         {/* Divider */}
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+            <div className="w-full border-t border-gray-700" />
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-green-700 rounded-xl py-[1px] text-gray-200 text-xs">Secure Login</span>
+          <div className="relative flex justify-center">
+            <span className="rounded-full bg-gray-800 px-3 py-0.5 text-xs text-gray-400 border border-gray-700">
+              Secure Authentication
+            </span>
           </div>
         </div>
 
-        {/* Footer Text */}
-        <p className="text-center text-sm text-gray-500">
+        {/* Footer */}
+        <p className="text-center text-xs text-gray-500 leading-relaxed">
           By continuing, you agree to our{" "}
           <a
             href="#"
-            className="text-gray-300 hover:text-blue-400 font-medium"
+            className="text-gray-300 hover:text-emerald-400 transition"
           >
             Terms of Service
           </a>{" "}
           and{" "}
           <a
             href="#"
-            className="text-gray-300 hover:text-blue-400 font-medium"
+            className="text-gray-300 hover:text-emerald-400 transition"
           >
             Privacy Policy
           </a>

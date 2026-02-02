@@ -10,11 +10,9 @@ import {
   Home,
   CreditCard,
   Shield,
+  Zap,
   Users,
   TrendingUp,
-  Mail,
-  FileCheck,
-  MapPinned,
   MessageCircle,
   X,
 } from "lucide-react";
@@ -22,19 +20,14 @@ import { motion } from "framer-motion";
 import web_logo from "../../assets/images/web-logo.png";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { useNavigate } from "react-router-dom";
-import FirmPreview from "./components/FirmPreview.jsx";
+import BrokerPreview from "./components/BrokerPreview.jsx";
 
-const FirmRegistration = () => {
+const BrokerRegistration = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    rera_cert_number: "",
-    addresses: {
+    working_area: {
       pincode: "",
       city: "",
       area: "",
-      landmark: "",
     },
   });
 
@@ -50,30 +43,21 @@ const FirmRegistration = () => {
 
   // Mock authenticated user data
   const authenticatedUser = {
-    owner: "Sarah Johnson",
+    dealer: "John Anderson",
+    phone: "+1 (555) 123-4567",
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Handle nested address fields
-    if (name.startsWith("addresses.")) {
-      const addressField = name.split(".")[1];
-      setFormData((prev) => ({
-        ...prev,
-        addresses: {
-          ...prev.addresses,
-          [addressField]: value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
+    setFormData((prev) => ({
+      ...prev,
+      working_area: {
+        ...prev.working_area,
         [name]: value,
-      }));
-    }
+      },
+    }));
 
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -82,40 +66,18 @@ const FirmRegistration = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Firm Details validation
-    if (!formData.name.trim()) {
-      newErrors.name = "Firm name is required";
+    if (!formData.working_area.pincode.trim()) {
+      newErrors.pincode = "Pincode is required";
+    } else if (!/^\d{5,6}$/.test(formData.working_area.pincode)) {
+      newErrors.pincode = "Enter a valid pincode";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Enter a valid email address";
+    if (!formData.working_area.city.trim()) {
+      newErrors.city = "City is required";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^[\d\s\-\+\(\)]{10,}$/.test(formData.phone)) {
-      newErrors.phone = "Enter a valid phone number";
-    }
-
-    if (!formData.rera_cert_number.trim()) {
-      newErrors.rera_cert_number = "RERA certificate number is required";
-    }
-
-    // Address validation
-    if (!formData.addresses.pincode.trim()) {
-      newErrors["addresses.pincode"] = "Pincode is required";
-    } else if (!/^\d{5,6}$/.test(formData.addresses.pincode)) {
-      newErrors["addresses.pincode"] = "Enter a valid pincode";
-    }
-
-    if (!formData.addresses.city.trim()) {
-      newErrors["addresses.city"] = "City is required";
-    }
-
-    if (!formData.addresses.area.trim()) {
-      newErrors["addresses.area"] = "Area is required";
+    if (!formData.working_area.area.trim()) {
+      newErrors.area = "Area is required";
     }
 
     setErrors(newErrors);
@@ -124,13 +86,9 @@ const FirmRegistration = () => {
 
   const isFormValid = () => {
     return (
-      formData.name.trim() &&
-      formData.email.trim() &&
-      formData.phone.trim() &&
-      formData.rera_cert_number.trim() &&
-      formData.addresses.pincode.trim() &&
-      formData.addresses.city.trim() &&
-      formData.addresses.area.trim() &&
+      formData.working_area.pincode.trim() &&
+      formData.working_area.city.trim() &&
+      formData.working_area.area.trim() &&
       roleConfirmed
     );
   };
@@ -142,21 +100,15 @@ const FirmRegistration = () => {
       return;
     }
 
-    // Prepare payload for API submission
     const payload = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      rera_cert_number: formData.rera_cert_number,
-      addresses: {
-        pincode: formData.addresses.pincode,
-        city: formData.addresses.city,
-        area: formData.addresses.area,
-        landmark: formData.addresses.landmark,
+      working_area: {
+        pincode: formData.working_area.pincode,
+        city: formData.working_area.city,
+        area: formData.working_area.area,
       },
     };
 
-    console.log("Submitting firm registration:", payload);
+    console.log("Submitting dealer registration:", payload);
     // Close sheet on successful submission
     setIsSheetOpen(false);
   };
@@ -172,13 +124,9 @@ const FirmRegistration = () => {
 
   const calculateProgress = () => {
     const fields = [
-      formData.name,
-      formData.email,
-      formData.phone,
-      formData.rera_cert_number,
-      formData.addresses.pincode,
-      formData.addresses.city,
-      formData.addresses.area,
+      formData.working_area.pincode,
+      formData.working_area.city,
+      formData.working_area.area,
       roleConfirmed ? "confirmed" : "",
     ];
     const filledFields = fields.filter(
@@ -194,7 +142,7 @@ const FirmRegistration = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             {/* Logo/Brand */}
-            <div className="flex items-center animate-fadeIn">
+            <div className="flex items-center gap-3 animate-fadeIn">
               <div>
                 <img
                   src={web_logo}
@@ -239,7 +187,6 @@ const FirmRegistration = () => {
           {/* Hero Section - Left Side */}
           <div className="space-y-8 lg:sticky lg:top-8 mb-20">
             {/* Main Hero Content */}
-
             <div
               className="space-y-6 animate-fadeIn"
               style={{ animationDelay: "0.2s" }}
@@ -247,7 +194,7 @@ const FirmRegistration = () => {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full">
                 <Shield className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-medium text-blue-300 tracking-wide">
-                  RERA Certified Platform
+                  Verified Broker Platform
                 </span>
               </div>
 
@@ -256,14 +203,13 @@ const FirmRegistration = () => {
                   className="text-4xl lg:text-5xl xl:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-cyan-100 leading-tight"
                   style={{ letterSpacing: "-0.02em" }}
                 >
-                  Register Your Real Estate Firm
+                  Join India's Premier Real Estate Network
                 </h1>
 
-                <p className="lg:text-lg text-gray-400 leading-relaxed max-w-xl text-xs">
-                  Join a trusted real estate platform built for professional
-                  firms. Manage your team, properties, and clients using
-                  enterprise-grade tools designed for compliance and scalable
-                  growth.
+                <p className="lg:text-lg text-xs text-gray-400 leading-relaxed max-w-xl">
+                  Register as a professional broker to unlock exclusive property
+                  listings, advanced marketplace tools, and connect with
+                  verified buyers across your territory.
                 </p>
               </div>
             </div>
@@ -288,6 +234,8 @@ const FirmRegistration = () => {
                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
               </button>
             </div>
+            {/* preview */}
+            <BrokerPreview />
             {/* Benefits Grid */}
             <div
               className="grid sm:grid-cols-2 gap-4 animate-fadeIn"
@@ -295,13 +243,14 @@ const FirmRegistration = () => {
             >
               <div className="p-4 bg-slate-800/30 border border-slate-700/40 rounded-xl hover:bg-slate-800/50 transition-all duration-300 group">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <Building2 className="w-5 h-5 text-blue-400" />
+                  <Zap className="w-5 h-5 text-blue-400" />
                 </div>
                 <h3 className="font-semibold text-white mb-1">
-                  Firm Dashboard
+                  Instant Access
                 </h3>
                 <p className="text-sm text-gray-500">
-                  Complete management console for team, listings, and operations
+                  Get immediate access to premium listings and marketplace
+                  features
                 </p>
               </div>
 
@@ -310,39 +259,12 @@ const FirmRegistration = () => {
                   <Users className="w-5 h-5 text-cyan-400" />
                 </div>
                 <h3 className="font-semibold text-white mb-1">
-                  Team Management
+                  Verified Network
                 </h3>
                 <p className="text-sm text-gray-500">
-                  Add agents, assign roles, and track performance seamlessly
+                  Connect with authenticated buyers and trusted property owners
                 </p>
               </div>
-
-              <div className="p-4 bg-slate-800/30 border border-slate-700/40 rounded-xl hover:bg-slate-800/50 transition-all duration-300 group">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-green-500/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-5 h-5 text-green-400" />
-                </div>
-                <h3 className="font-semibold text-white mb-1">
-                  Analytics & Reports
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Real-time insights on leads, conversions, and revenue
-                </p>
-              </div>
-
-              <div className="p-4 bg-slate-800/30 border border-slate-700/40 rounded-xl hover:bg-slate-800/50 transition-all duration-300 group">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-green-500/20 border border-cyan-500/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <FileCheck className="w-5 h-5 text-cyan-400" />
-                </div>
-                <h3 className="font-semibold text-white mb-1">
-                  RERA Compliance
-                </h3>
-                <p className="text-sm text-gray-500">
-                  Built-in compliance tools and automated documentation
-                </p>
-              </div>
-            </div>
-            <div className="h-auto border border-gray-800/60 p-4 rounded-md">
-              <FirmPreview />
             </div>
           </div>
 
@@ -386,14 +308,14 @@ const FirmRegistration = () => {
             {/* Form Header */}
             <div className="text-center lg:text-left mb-6">
               <h2 className="text-2xl font-bold text-white mb-2">
-                Firm Registration
+                Complete Your Registration
               </h2>
               <p className="text-sm text-gray-400">
-                Complete the form below to create your firm profile
+                Fill in your details to activate your broker account
               </p>
             </div>
 
-            {/* Registration Card Component - This will be reused in mobile sheet */}
+            {/* Registration Form Component */}
             <RegistrationForm
               formData={formData}
               errors={errors}
@@ -411,7 +333,7 @@ const FirmRegistration = () => {
             {/* Footer Note */}
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-500 leading-relaxed">
-                By creating a firm profile, you agree to our{" "}
+                By creating a broker profile, you agree to our{" "}
                 <button className="text-cyan-400 hover:text-cyan-300 transition-colors underline-offset-2 hover:underline">
                   Terms of Service
                 </button>{" "}
@@ -466,10 +388,10 @@ const FirmRegistration = () => {
           <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
             <div>
               <h2 className="text-xl font-bold text-white">
-                Firm Registration
+                Broker Registration
               </h2>
               <p className="text-xs text-gray-400 mt-0.5">
-                Complete your firm profile
+                Complete your broker profile
               </p>
             </div>
             <button
@@ -573,155 +495,33 @@ const RegistrationForm = ({
 
         <div className="p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Firm Details Section */}
+            {/* Broker Identity Section */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center">
-                  <Building2 className="w-4 h-4 text-blue-400" />
+                  <BadgeCheck className="w-4 h-4 text-blue-400" />
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-gray-100">
-                    Firm Information
+                    Broker Identity
                   </h3>
                   <p className="text-xs text-gray-500">
-                    Basic details about your firm
+                    Your authenticated account information
                   </p>
                 </div>
               </div>
 
-              {/* Firm Name */}
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Firm Name
-                  <span className="text-cyan-400 ml-1">*</span>
-                </label>
-                <div className="relative group/input">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <Building2 className="w-4 h-4 text-gray-500" />
-                  </div>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    onFocus={() => setFocusedField("name")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="e.g., Prime Properties Inc."
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-800/40 border ${
-                      focusedField === "name"
-                        ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                        : errors.name
-                          ? "border-cyan-500/30"
-                          : "border-slate-700/50"
-                    } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
-                  />
-                  <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                      focusedField === "name" ? "opacity-100" : "opacity-0"
-                    }`}
-                  ></div>
-                </div>
-                {errors.name && (
-                  <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
-                    <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                    {errors.name}
-                  </p>
-                )}
-              </div>
-
               <div className="grid sm:grid-cols-2 gap-4">
-                {/* Firm Email */}
-                <div className="relative">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Firm Email
-                    <span className="text-cyan-400 ml-1">*</span>
-                  </label>
-                  <div className="relative group/input">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <Mail className="w-4 h-4 text-gray-500" />
-                    </div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      onFocus={() => setFocusedField("email")}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder="contact@firm.com"
-                      className={`w-full pl-10 pr-4 py-3 bg-slate-800/40 border ${
-                        focusedField === "email"
-                          ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                          : errors.email
-                            ? "border-cyan-500/30"
-                            : "border-slate-700/50"
-                      } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
-                    />
-                    <div
-                      className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                        focusedField === "email" ? "opacity-100" : "opacity-0"
-                      }`}
-                    ></div>
-                  </div>
-                  {errors.email && (
-                    <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
-                      <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                      {errors.email}
-                    </p>
-                  )}
-                </div>
-
-                {/* Phone Number */}
-                <div className="relative">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Phone Number
-                    <span className="text-cyan-400 ml-1">*</span>
-                  </label>
-                  <div className="relative group/input">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <Phone className="w-4 h-4 text-gray-500" />
-                    </div>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      onFocus={() => setFocusedField("phone")}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder="+1 (555) 000-0000"
-                      className={`w-full pl-10 pr-4 py-3 bg-slate-800/40 border ${
-                        focusedField === "phone"
-                          ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                          : errors.phone
-                            ? "border-cyan-500/30"
-                            : "border-slate-700/50"
-                      } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
-                    />
-                    <div
-                      className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                        focusedField === "phone" ? "opacity-100" : "opacity-0"
-                      }`}
-                    ></div>
-                  </div>
-                  {errors.phone && (
-                    <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
-                      <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                      {errors.phone}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {/* Owner Name (Read-only) */}
+                {/* Broker Name */}
                 <div className="relative group/input">
                   <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
-                    <span>Owner Name</span>
+                    <span>Broker Name</span>
                     <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
                   </label>
                   <div className="relative">
                     <input
                       type="text"
-                      value={authenticatedUser.owner}
+                      value={authenticatedUser.dealer}
                       disabled
                       className="w-full px-4 py-3 bg-slate-800/40 border border-slate-700/50 rounded-lg text-gray-300 cursor-not-allowed transition-all text-sm"
                     />
@@ -729,46 +529,24 @@ const RegistrationForm = ({
                   </div>
                 </div>
 
-                {/* RERA Certificate Number */}
-                <div className="relative">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    RERA Certificate
-                    <span className="text-cyan-400 ml-1">*</span>
+                {/* Phone Number */}
+                <div className="relative group/input">
+                  <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <span>Phone Number</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
                   </label>
-                  <div className="relative group/input">
+                  <div className="relative">
                     <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <FileCheck className="w-4 h-4 text-gray-500" />
+                      <Phone className="w-4 h-4 text-gray-500" />
                     </div>
                     <input
                       type="text"
-                      name="rera_cert_number"
-                      value={formData.rera_cert_number}
-                      onChange={handleInputChange}
-                      onFocus={() => setFocusedField("rera_cert_number")}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder="e.g., RERA/2024/12345"
-                      className={`w-full pl-10 pr-4 py-3 bg-slate-800/40 border ${
-                        focusedField === "rera_cert_number"
-                          ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                          : errors.rera_cert_number
-                            ? "border-cyan-500/30"
-                            : "border-slate-700/50"
-                      } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
+                      value={authenticatedUser.phone}
+                      disabled
+                      className="w-full pl-10 pr-4 py-3 bg-slate-800/40 border border-slate-700/50 rounded-lg text-gray-300 cursor-not-allowed transition-all text-sm"
                     />
-                    <div
-                      className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                        focusedField === "rera_cert_number"
-                          ? "opacity-100"
-                          : "opacity-0"
-                      }`}
-                    ></div>
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 opacity-0 group-hover/input:opacity-100 transition-opacity pointer-events-none"></div>
                   </div>
-                  {errors.rera_cert_number && (
-                    <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
-                      <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                      {errors.rera_cert_number}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -780,12 +558,12 @@ const RegistrationForm = ({
               </div>
               <div className="relative flex justify-center">
                 <span className="px-3 bg-gradient-to-br from-slate-900/90 to-slate-800/90 text-xs text-gray-500 uppercase tracking-wider">
-                  Firm Address
+                  Working Territory
                 </span>
               </div>
             </div>
 
-            {/* Address Section */}
+            {/* Working Area Section */}
             <div className="space-y-4">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center">
@@ -793,10 +571,10 @@ const RegistrationForm = ({
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-gray-100">
-                    Office Location
+                    Primary Operating Area
                   </h3>
                   <p className="text-xs text-gray-500">
-                    Primary office address details
+                    Define your main service territory
                   </p>
                 </div>
               </div>
@@ -810,32 +588,30 @@ const RegistrationForm = ({
                 <div className="relative group/input">
                   <input
                     type="text"
-                    name="addresses.pincode"
-                    value={formData.addresses.pincode}
+                    name="pincode"
+                    value={formData.working_area.pincode}
                     onChange={handleInputChange}
-                    onFocus={() => setFocusedField("addresses.pincode")}
+                    onFocus={() => setFocusedField("pincode")}
                     onBlur={() => setFocusedField(null)}
                     placeholder="Enter 5-6 digit postal code"
                     className={`w-full px-4 py-3 bg-slate-800/40 border ${
-                      focusedField === "addresses.pincode"
+                      focusedField === "pincode"
                         ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                        : errors["addresses.pincode"]
+                        : errors.pincode
                           ? "border-cyan-500/30"
                           : "border-slate-700/50"
                     } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
                   />
                   <div
                     className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                      focusedField === "addresses.pincode"
-                        ? "opacity-100"
-                        : "opacity-0"
+                      focusedField === "pincode" ? "opacity-100" : "opacity-0"
                     }`}
                   ></div>
                 </div>
-                {errors["addresses.pincode"] && (
+                {errors.pincode && (
                   <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
                     <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                    {errors["addresses.pincode"]}
+                    {errors.pincode}
                   </p>
                 )}
               </div>
@@ -850,32 +626,30 @@ const RegistrationForm = ({
                   <div className="relative group/input">
                     <input
                       type="text"
-                      name="addresses.city"
-                      value={formData.addresses.city}
+                      name="city"
+                      value={formData.working_area.city}
                       onChange={handleInputChange}
-                      onFocus={() => setFocusedField("addresses.city")}
+                      onFocus={() => setFocusedField("city")}
                       onBlur={() => setFocusedField(null)}
-                      placeholder="e.g., Mumbai"
+                      placeholder="e.g., New Delhi"
                       className={`w-full px-4 py-3 bg-slate-800/40 border ${
-                        focusedField === "addresses.city"
+                        focusedField === "city"
                           ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                          : errors["addresses.city"]
+                          : errors.city
                             ? "border-cyan-500/30"
                             : "border-slate-700/50"
                       } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
                     />
                     <div
                       className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                        focusedField === "addresses.city"
-                          ? "opacity-100"
-                          : "opacity-0"
+                        focusedField === "city" ? "opacity-100" : "opacity-0"
                       }`}
                     ></div>
                   </div>
-                  {errors["addresses.city"] && (
+                  {errors.city && (
                     <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
                       <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                      {errors["addresses.city"]}
+                      {errors.city}
                     </p>
                   )}
                 </div>
@@ -889,76 +663,40 @@ const RegistrationForm = ({
                   <div className="relative group/input">
                     <input
                       type="text"
-                      name="addresses.area"
-                      value={formData.addresses.area}
+                      name="area"
+                      value={formData.working_area.area}
                       onChange={handleInputChange}
-                      onFocus={() => setFocusedField("addresses.area")}
+                      onFocus={() => setFocusedField("area")}
                       onBlur={() => setFocusedField(null)}
-                      placeholder="e.g., Andheri West"
+                      placeholder="e.g., Connaught Place"
                       className={`w-full px-4 py-3 bg-slate-800/40 border ${
-                        focusedField === "addresses.area"
+                        focusedField === "area"
                           ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                          : errors["addresses.area"]
+                          : errors.area
                             ? "border-cyan-500/30"
                             : "border-slate-700/50"
                       } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
                     />
                     <div
                       className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                        focusedField === "addresses.area"
-                          ? "opacity-100"
-                          : "opacity-0"
+                        focusedField === "area" ? "opacity-100" : "opacity-0"
                       }`}
                     ></div>
                   </div>
-                  {errors["addresses.area"] && (
+                  {errors.area && (
                     <p className="mt-1.5 text-xs text-cyan-400 flex items-center gap-1.5 animate-fadeIn">
                       <span className="w-1 h-1 bg-cyan-400 rounded-full"></span>
-                      {errors["addresses.area"]}
+                      {errors.area}
                     </p>
                   )}
-                </div>
-              </div>
-
-              {/* Landmark (Optional) */}
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Landmark
-                  <span className="text-gray-500 text-xs ml-1">(Optional)</span>
-                </label>
-                <div className="relative group/input">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <MapPinned className="w-4 h-4 text-gray-500" />
-                  </div>
-                  <input
-                    type="text"
-                    name="addresses.landmark"
-                    value={formData.addresses.landmark}
-                    onChange={handleInputChange}
-                    onFocus={() => setFocusedField("addresses.landmark")}
-                    onBlur={() => setFocusedField(null)}
-                    placeholder="e.g., Near Metro Station"
-                    className={`w-full pl-10 pr-4 py-3 bg-slate-800/40 border ${
-                      focusedField === "addresses.landmark"
-                        ? "border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                        : "border-slate-700/50"
-                    } rounded-lg text-gray-100 placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-cyan-500/50 focus:shadow-lg focus:shadow-cyan-500/10 text-sm`}
-                  />
-                  <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 transition-opacity duration-300 pointer-events-none ${
-                      focusedField === "addresses.landmark"
-                        ? "opacity-100"
-                        : "opacity-0"
-                    }`}
-                  ></div>
                 </div>
               </div>
 
               <p className="text-xs text-gray-500 flex items-start gap-2 bg-slate-800/30 border border-slate-700/30 rounded-lg p-3">
                 <MapPin className="w-3.5 h-3.5 text-gray-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Provide your primary office address. Additional branches can
-                  be added later.
+                  Specify your primary service area. Additional territories can
+                  be added after registration.
                 </span>
               </p>
             </div>
@@ -970,7 +708,7 @@ const RegistrationForm = ({
               </div>
               <div className="relative flex justify-center">
                 <span className="px-3 bg-gradient-to-br from-slate-900/90 to-slate-800/90 text-xs text-gray-500 uppercase tracking-wider">
-                  Role Confirmation
+                  Role Assignment
                 </span>
               </div>
             </div>
@@ -983,7 +721,7 @@ const RegistrationForm = ({
                     Confirm Registration Type
                   </h3>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    This action registers you as a firm
+                    This defines your platform access level
                   </p>
                 </div>
                 {roleConfirmed && (
@@ -1023,17 +761,16 @@ const RegistrationForm = ({
                         roleConfirmed ? "text-cyan-300" : "text-gray-300"
                       }`}
                     >
-                      I confirm that I am authorized to register and represent
-                      this firm
+                      Register as Professional Broker
                       {roleConfirmed && (
                         <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 text-[10px] font-bold rounded uppercase tracking-wider">
-                          Confirmed
+                          Active
                         </span>
                       )}
                     </div>
                     <div className="text-xs text-gray-500 mt-0.5 leading-relaxed">
-                      Grants access to firm dashboard and your own Personal
-                      Website View
+                      Grants access to broker dashboard, property management,
+                      and marketplace tools
                     </div>
                   </div>
 
@@ -1068,7 +805,7 @@ const RegistrationForm = ({
                   </>
                 )}
 
-                <span className="relative">Register Firm</span>
+                <span className="relative">Create Broker Profile</span>
                 <ArrowRight
                   className={`w-4 h-4 transition-transform duration-300 ${
                     isFormValid() ? "group-hover/btn:translate-x-1" : ""
@@ -1099,4 +836,4 @@ const RegistrationForm = ({
   );
 };
 
-export default FirmRegistration;
+export default BrokerRegistration;
