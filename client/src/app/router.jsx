@@ -12,7 +12,7 @@ import Layout from "../layouts/Layout.jsx";
 // import from pages...
 // import Home from "../pages/Home.jsx";
 import PostProperty from "../pages/postProperty/PostProperty.jsx";
-import HireDealerAgenciesModal from "../pages/AgencyDealerPropertyPage/HireDealerAgenciesModal.jsx";
+import Firms from "../pages/FirmsView/Firms.jsx";
 import LoginPage from "../pages/authentication/LoginPage.jsx";
 import CommonView from "../pages/propertyPages/CommonView.jsx";
 import ForCouples from "../pages/propertyPages/ThroughAgents/ForCouples.jsx";
@@ -26,6 +26,7 @@ import DealersDashboard from "../dashboards/Dealers/DealersDashboard.jsx";
 import AgencyRegistration from "../pages/NewRegistrationPage/AgencyRegistration.jsx";
 import HomePage from "../components/main/EnhancedHomePage.jsx";
 import BrokerRegistration from "../pages/NewRegistrationPage/BrokerRegistration.jsx";
+import PropertyWishlist from "../pages/WishlistView/PropertWishlist.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,8 +37,8 @@ export const router = createBrowserRouter(
         {/* page-routes */}
         {/* <Route index element={<Home />} /> */}
         <Route index element={<HomePage />} />
-        <Route path="top-agencies" element={<HireDealerAgenciesModal />} />
-        <Route path="wishlist" element={<WishlistPage />} />
+        <Route path="top-firms" element={<Firms />} />
+        <Route path="wishlist" element={<PropertyWishlist />} />
 
         <Route
           element={<ProtectedRoutes allowedRoles={["agency", "dealer"]} />}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Heart, User, PlusCircle, LucideStars } from "lucide-react";
@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { getBottomNavItems } from "../../utils/BottomNavs.js";
 import SearchBar from "../../components/header/SearchBar.jsx";
+import NavItems from "./NavItems.jsx";
 
 function BottomNavPortal({ children }) {
   if (typeof document === "undefined") return null;
@@ -23,6 +24,15 @@ function Navbar({ toggleDrawer }) {
 
   const showSearchBar = location.pathname.startsWith("/property-view");
 
+  const buttonRef = useRef(null);
+
+  const isWishlistActive = location.pathname === "/wishlist";
+
+  useEffect(() => {
+    if (isWishlistActive && buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [isWishlistActive]);
   useEffect(() => {
     if (window.innerWidth >= 1024) return;
 
@@ -50,7 +60,7 @@ function Navbar({ toggleDrawer }) {
   return (
     <>
       {/* Top Navbar */}
-      <nav className="fixed top-0 z-50 w-full bg-[#131515]">
+      <nav className="fixed top-0 z-50 w-full bg-[#131515] shadow-sm">
         <div className="h-14 px-5 sm:px-4 lg:px-6 xl:px-8 flex items-center justify-between">
           {/* Logo */}
           <motion.img
@@ -70,56 +80,8 @@ function Navbar({ toggleDrawer }) {
           )}
 
           {/* Center Desktop Nav */}
-          <div className="fixed left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-1 bg-gray-900 border border-gray-800/40 rounded-xl px-2 py-1.5 shadow-inner">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `px-3 py-2 text-xs rounded-md transition ${
-                  isActive
-                    ? "text-white bg-white/10"
-                    : "text-gray-400 hover:text-white"
-                }`
-              }
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              to="/top-agencies"
-              className={({ isActive }) =>
-                `px-4 py-2 text-xs rounded-lg transition ${
-                  isActive
-                    ? "text-green-600 bg-emerald-500/20 border border-green-800"
-                    : "text-slate-400 hover:text-slate-200"
-                }`
-              }
-            >
-              Firms
-            </NavLink>
-
-            <NavLink
-              to="/new-projects"
-              className={({ isActive }) =>
-                `relative px-3 py-2 text-xs rounded-md transition ${
-                  isActive
-                    ? "text-indigo-600 bg-white/10"
-                    : "text-indigo-400 hover:text-indigo-600"
-                }`
-              }
-            >
-              New Projects
-              <LucideStars
-                className="absolute top-0 right-1 text-indigo-200"
-                size={12}
-              />
-            </NavLink>
-
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              className="ml-1 px-4 py-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-700 text-white border border-cyan-400/30"
-            >
-              G-Prime
-            </motion.button>
+          <div className="fixed left-1/2 -translate-x-1/2 ">
+            <NavItems />
           </div>
 
           {/* Right Actions */}
@@ -137,16 +99,23 @@ function Navbar({ toggleDrawer }) {
             )}
 
             <motion.button
-              whileHover={{ y: -0.5 }}
+              ref={buttonRef}
               whileTap={{ scale: 0.92 }}
               onClick={() => navigate("/wishlist")}
-              className="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-rose-300 bg-[#140f11] border border-rose-500/20 hover:bg-[#1b1215] hover:border-rose-400/40 transition-all duration-200 outline-none"
+              className={`flex h-7 w-8 items-center justify-center rounded-md border transition outline-none
+        ${
+          isWishlistActive
+            ? "bg-indigo-700/20 border-indigo-600"
+            : "border-gray-800 hover:border-gray-700"
+        }
+      
+      `}
             >
-              {/* Icon */}
-              <Heart className="size-4 text-rose-300 transition-colors duration-200 group-hover:text-rose-400" />
-
-              {/* Label */}
-              <span className="leading-none hidden sm:inline">Wishlist</span>
+              <Heart
+                className={`h-3.5 w-3.5 ${
+                  isWishlistActive ? "text-red-400" : "text-gray-400"
+                }`}
+              />
             </motion.button>
             <div className="w-[1px] bg-slate-400/30  h-4"></div>
             <div className="flex items-center space-x-2">

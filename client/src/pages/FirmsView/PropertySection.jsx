@@ -127,16 +127,11 @@ function PropertySection({ propertyType = "rent" }) {
   ];
 
   const filteredProperties = FAKE_PROPERTIES.filter(
-    (property) => property.type === propertyType
+    (property) => property.type === propertyType,
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -40 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      className="grid grid-cols-3 grid-rows-2 p-3 gap-4"
-    >
+    <motion.div className="grid grid-cols-3 grid-rows-2 p-3 gap-4">
       {filteredProperties.map((property) => (
         <PropertyView
           key={property.id}

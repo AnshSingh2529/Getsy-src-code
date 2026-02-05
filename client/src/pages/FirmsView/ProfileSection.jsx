@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   MessageCircleMore,
   PhoneCallIcon,
   PhoneIncomingIcon,
+  VerifiedIcon,
 } from "lucide-react";
 
 function ProfileSection() {
+  const [openRequestModal, setOpenRequestModal] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  useEffect(() => {
+    if (feedback) {
+      const t = setTimeout(() => setFeedback(""), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [feedback]);
+
   return (
     <div className="space-y-2 h-full overflow-y-hidden outline-none">
       <div className="flex flex-col space-y-3 relative">
@@ -51,6 +63,7 @@ function ProfileSection() {
           <motion.button
             whileTap={{ scale: 0.92 }}
             whileHover={{ scale: 0.98, backgroundColor: "green" }}
+            onClick={() => setOpenRequestModal(true)}
             className="rounded-md py-2 px-2 text-xs bg-green-800 text-green-100 font-medium shadow-lg  flex items-center justify-center space-x-2"
           >
             <p>Request Call</p> <PhoneIncomingIcon width={12} height={12} />
@@ -58,6 +71,11 @@ function ProfileSection() {
           <motion.button
             whileTap={{ scale: 0.92 }}
             whileHover={{ scale: 0.98, backgroundColor: "blue" }}
+            onClick={() =>
+              setFeedback(
+                "Contact details for instant call have been sent via SMS.",
+              )
+            }
             className="rounded-lg py-2 px-2 text-xs bg-blue-700 text-blue-100 font-medium shadow-lg border-t-2 border-blue-400 flex items-center justify-center space-x-2"
           >
             <p>Instant Call </p>
@@ -67,11 +85,119 @@ function ProfileSection() {
         <motion.button
           whileTap={{ scale: 0.92 }}
           whileHover={{ scale: 0.98, backgroundColor: "green" }}
+          onClick={() => {
+            const phone = "919999999999"; // dealer number
+            const msg = encodeURIComponent(
+              "Hi, I'm interested in your property listing.",
+            );
+            window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+          }}
           className="rounded-xl py-2 px-2 text-xs bg-green-700 text-green-100 font-medium shadow-lg flex items-center justify-center space-x-2 border-t-2 border-green-400"
         >
           <p>WhatsApp</p> <MessageCircleMore width={12} height={12} />
         </motion.button>
       </div>
+      {/* Contact Modals */}
+      {openRequestModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ scale: 0.96, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-[340px] rounded-xl bg-gray-900 border border-gray-700 p-4"
+          >
+            <p className="text-sm font-semibold text-gray-200">
+              Request a Call Back
+            </p>
+
+            <p className="text-[11px] text-gray-400 mt-1">
+              Help us understand your requirement better
+            </p>
+
+            {/* Transaction Type */}
+            <div className="mt-3">
+              <label className="text-[10px] text-gray-400">Looking to</label>
+              <select className="mt-1 w-full rounded-md bg-gray-800 border border-gray-700 text-xs text-gray-300 p-2">
+                <option value="">Select intent</option>
+                <option>Buy</option>
+                <option>Rent</option>
+                <option>Lease</option>
+                <option>Explore New Projects</option>
+              </select>
+            </div>
+
+            {/* Property Type */}
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <div>
+                <label className="text-[10px] text-gray-400">
+                  Property Type
+                </label>
+                <select className="mt-1 w-full rounded-md bg-gray-800 border border-gray-700 text-xs text-gray-300 p-2">
+                  <option value="">Select</option>
+                  <option>Residential</option>
+                  <option>Commercial</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[10px] text-gray-400">Occupancy</label>
+                <select className="mt-1 w-full rounded-md bg-gray-800 border border-gray-700 text-xs text-gray-300 p-2">
+                  <option value="">Select</option>
+                  <option>Family</option>
+                  <option>Individual</option>
+                  <option>Business Use</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Budget */}
+            <div className="mt-3">
+              <label className="text-[10px] text-gray-400">Budget Range</label>
+              <select className="mt-1 w-full rounded-md bg-gray-800 border border-gray-700 text-xs text-gray-300 p-2">
+                <option value="">Select range</option>
+                <option>Under ₹25 Lakhs</option>
+                <option>₹25 – ₹50 Lakhs</option>
+                <option>₹50 – ₹1 Cr</option>
+                <option>₹1 Cr+</option>
+              </select>
+            </div>
+
+            {/* Buyer Profile */}
+            <div className="mt-3">
+              <label className="text-[10px] text-gray-400">
+                Employment Type
+              </label>
+              <select className="mt-1 w-full rounded-md bg-gray-800 border border-gray-700 text-xs text-gray-300 p-2">
+                <option value="">Select</option>
+                <option>Salaried</option>
+                <option>Self-Employed</option>
+                <option>Business Owner</option>
+              </select>
+            </div>
+
+            {/* Actions */}
+            <div className="flex justify-end gap-2 mt-5">
+              <button
+                onClick={() => setOpenRequestModal(false)}
+                className="text-xs text-gray-400"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => {
+                  setOpenRequestModal(false);
+                  setFeedback(
+                    "Thanks! Our property expert will contact you shortly.",
+                  );
+                }}
+                className="rounded-md bg-green-700 px-4 py-1.5 text-xs text-green-100"
+              >
+                Request Call
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       <div className="w-full h-[1px] bg-gray-700/10"></div>
       {/* Introduction – Video Placeholders */}
@@ -192,6 +318,18 @@ function ProfileSection() {
           </div>
         </div>
       </div>
+      {feedback && (
+        <div className="fixed top-16 z-50 inset-x-0 flex justify-center pointer-events-none">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="pointer-events-auto flex items-center rounded-lg bg-gray-900 border border-gray-700 px-4 py-2 text-xs text-gray-200 shadow-xl"
+          >
+            <VerifiedIcon className="text-green-500 mr-2" />
+            {feedback}
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
