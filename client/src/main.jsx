@@ -19,5 +19,5 @@ createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       </AuthGate>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

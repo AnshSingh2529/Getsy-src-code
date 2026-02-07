@@ -26,7 +26,23 @@ export const saveProfileToStorage = (data) => {
 export const loadProfileFromStorage = () => {
   try {
     return JSON.parse(localStorage.getItem("profile"));
-  } catch {
-    return null;
+  } catch (error) {
+    console.log(error);
   }
 };
+
+// export const savePropertyWislistedToStorage = (wishlistedProperty) => {
+//   if (wishlistedProperty) return localStorage.removeItem("wishlistedProperty");
+//   localStorage.setItem(
+//     "wishlistedProperty",
+//     JSON.stringify(wishlistedProperty),
+//   );
+// };
+
+// export const loadWishlistedPropertyFromStorage = () => {
+//   try {
+//     return JSON.parse(localStorage.getItem("wishlistedProperty"));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

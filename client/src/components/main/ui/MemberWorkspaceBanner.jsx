@@ -31,7 +31,7 @@ function MemberWorkspaceBanner() {
 
             {/* CTA Row */}
             <div className="flex items-center gap-3 pt-2">
-              <BecomeMemberCTA />
+              <BecomeMemberCTA compact="true" />
 
               <div className="flex items-center gap-1.5 text-xs text-gray-500">
                 <Lock size={12} />

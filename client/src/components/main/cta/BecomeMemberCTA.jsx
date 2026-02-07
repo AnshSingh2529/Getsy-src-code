@@ -13,7 +13,7 @@ function BecomeMemberCTA({ compact = false }) {
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="relative flex items-center gap-3">
           <UserPlusIcon className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300 text-green-200/60" />
-          <span>Become a Member</span>
+          <span className="text-sm">Become a Member</span>
           <svg
             className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
             fill="none"
